@@ -1,0 +1,164 @@
+<!--meta {"title": "Trust centre · Fortis", "description": "How Fortis protects your code and vulnerability data: what leaves your machine, how active checks are kept safe, NDPA processing, and how we secure Fortis itself.", "nav": "trust", "cta": true} -->
+<section class="page-hero dark-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span style="color:#93A0B8">Trust centre</span></nav>
+    <span class="eyebrow reveal">Trust centre</span>
+    <h1 class="words">A security tool <span class="it accent-mint">has to be safe first.</span></h1>
+    <p class="lead reveal" style="--d:150ms">Vulnerability data is among the most sensitive information you hold. These are the rules Fortis is built on, and how we hold ourselves to them.</p>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="On this page">
+  <div class="container">
+    <a href="#principles">Principles</a><a href="#data">What leaves your machine</a><a href="#active">Safe active checks</a><a href="#compliance">Compliance</a><a href="#ours">Securing Fortis</a><a href="#documents">Documents</a>
+  </div>
+</nav>
+
+<section class="section" id="principles">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Principles</span>
+        <h2 class="h2 words">Six rules <span class="it accent">we don't break.</span></h2>
+      </div>
+    </div>
+    <div class="trust reveal">
+      <div class="trust-item"><svg><use href="#i-lock"/></svg><h4>Your code stays with you</h4><p>Analysis runs on your laptop or in your CI. Fortis never receives your source code.</p></div>
+      <div class="trust-item"><svg><use href="#i-eye"/></svg><h4>Production is never attacked</h4><p>Active checks run only on verified staging targets. Production is observed, never tested.</p></div>
+      <div class="trust-item"><svg><use href="#i-key"/></svg><h4>Only targets you verify</h4><p>Prove ownership with a DNS record before any check, under a signed testing authorisation.</p></div>
+      <div class="trust-item"><svg><use href="#i-sign"/></svg><h4>Signed releases</h4><p>Signed packages with provenance, two-person release review and minimal dependencies.</p></div>
+      <div class="trust-item"><svg><use href="#i-pin"/></svg><h4>Data hosted in Africa</h4><p>Hosted in an Africa region by default, with Nigerian hosting for banks and larger MFBs.</p></div>
+      <div class="trust-item"><svg><use href="#i-file"/></svg><h4>NDPA-compliant processing</h4><p>A data processing agreement for every customer under the Nigeria Data Protection Act 2023.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="data" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Data flow</span>
+        <h2 class="h2 words">What leaves your machine, <span class="it accent">and what doesn't.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">The CLI analyses code locally. Only a small, masked description of each finding is sent to your dashboard, so your team can track and fix it.</p>
+    </div>
+    <div class="flow reveal">
+      <div class="flow-node"><svg class="ic"><use href="#i-code"/></svg><h3>Your laptop or CI</h3><p>Source code, secrets and config are read and analysed here, by rules running locally.</p><span class="tagk stays">Code stays here</span></div>
+      <div class="flow-arrow"><span>Masked finding</span></div>
+      <div class="flow-node"><svg class="ic"><use href="#i-lock"/></svg><h3>Encrypted in transit</h3><p>TLS 1.2+ to the Fortis API, authenticated with a project token you can rotate.</p><span class="tagk goes">Rule · file · line</span></div>
+      <div class="flow-arrow"><span>Stored encrypted</span></div>
+      <div class="flow-node dark"><svg class="ic"><use href="#i-layers"/></svg><h3>Your Fortis workspace</h3><p>Findings, fixes and re-tests, encrypted at rest, in your region, visible only to your team.</p><span class="tagk" style="color:var(--mint)">Evidence lives here</span></div>
+    </div>
+    <div class="feature" style="margin-top:60px;align-items:start">
+      <div>
+        <h3 class="h3 reveal">Exactly what we receive</h3>
+        <p class="lead reveal" style="font-size:16.5px;margin-top:16px">This is a typical finding as sent by the CLI. Secret values are reduced to a fingerprint and the last four characters, so you can tell keys apart without exposing them.</p>
+        <ul class="bullets reveal">
+          <li><svg><use href="#i-check-line"/></svg><span><strong>Sent:</strong> rule ID, severity, file path, line number, masked snippet, commit hash.</span></li>
+          <li><svg><use href="#i-minus"/></svg><span><strong>Never sent:</strong> source files, full secret values, environment variables, customer data.</span></li>
+          <li><svg><use href="#i-check-line"/></svg><span><strong>Offline mode:</strong> run the CLI with no network access and keep results local.</span></li>
+        </ul>
+      </div>
+<pre class="json reveal" style="--d:120ms"><span class="c">// POST /v1/findings  (illustrative)</span>
+{
+  <span class="k">"rule"</span>: <span class="s">"FX-SEC-001"</span>,
+  <span class="k">"severity"</span>: <span class="s">"critical"</span>,
+  <span class="k">"file"</span>: <span class="s">"src/config.ts"</span>,
+  <span class="k">"line"</span>: 4,
+  <span class="k">"snippet"</span>: <span class="s">"PAYSTACK_KEY = 'sk_live_<span class="x">••••••••</span>3f9a'"</span>,
+  <span class="k">"fingerprint"</span>: <span class="s">"sha256:9c1e…a07b"</span>,
+  <span class="k">"commit"</span>: <span class="s">"4e1d2c7"</span>,
+  <span class="k">"project"</span>: <span class="s">"paywave-api"</span>
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="active">
+  <div class="container feature">
+    <div>
+      <span class="eyebrow reveal">Safe active checks</span>
+      <h2 class="words">Staging checks with <span class="it accent">guard rails.</span></h2>
+      <p class="lead reveal">Active checks send real requests, so they're the part of Fortis we restrict most. Every check needs all of these in place first.</p>
+    </div>
+    <ol class="steps reveal" style="--d:120ms">
+      <li><strong>A signed testing authorisation</strong><span>Your organisation authorises Fortis to test named targets, in writing, before anything runs.</span></li>
+      <li><strong>DNS ownership proof</strong><span>A TXT record on the target domain. Change it and checks stop.</span></li>
+      <li><strong>Staging only</strong><span>Targets flagged as production are refused. Production is observed, never actively tested.</span></li>
+      <li><strong>Your own test users</strong><span>Checks sign in as test accounts you create, with test data only.</span></li>
+      <li><strong>Read-only by default</strong><span>Write checks are opt-in, per route, and rate-limited.</span></li>
+      <li><strong>Kill switch</strong><span>Pause all checks for a target instantly from the dashboard or CLI.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="compliance" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Compliance</span>
+        <h2 class="h2 words">Mapped to the rules <span class="it accent">you answer to.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">Fortis maps its findings and fixes to control areas, so your evidence speaks your reviewers' language. Mapping supports your compliance work; it isn't a certification.</p>
+    </div>
+    <div class="tiles reveal">
+      <div><svg><use href="#i-bank"/></svg><h3>CBN Risk-Based Cybersecurity Framework</h3><p>Secure development, vulnerability management and testing through the software lifecycle, alongside an annual third-party test.</p></div>
+      <div><svg><use href="#i-file"/></svg><h3>Nigeria Data Protection Act 2023</h3><p>Security of processing for personal data such as BVN, NIN and account details. A DPA for every customer.</p></div>
+      <div><svg><use href="#i-lock"/></svg><h3>PCI DSS 4.0</h3><p>Requirement 6 (secure software) and requirement 11 (security testing) control areas, for teams in card scope.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ours">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Securing Fortis</span>
+        <h2 class="h2 words">We test ourselves <span class="it accent">the way we test you.</span></h2>
+      </div>
+    </div>
+    <div class="tiles reveal">
+      <div><svg><use href="#i-terminal"/></svg><h3>Fortis on Fortis</h3><p>Every Fortis release must pass the same pre-push and staging checks we sell.</p></div>
+      <div><svg><use href="#i-users"/></svg><h3>Independent pentest</h3><p>A third-party penetration test before general availability, then at least once a year.</p></div>
+      <div><svg><use href="#i-key"/></svg><h3>Least-privilege access</h3><p>SSO and hardware keys for staff, with access to customer data logged and reviewed.</p></div>
+      <div><svg><use href="#i-sign"/></svg><h3>Signed supply chain</h3><p>Signed npm packages with provenance, pinned dependencies and two-person release review.</p></div>
+      <div><svg><use href="#i-lock"/></svg><h3>Encryption everywhere</h3><p>TLS in transit and encryption at rest, with per-workspace keys on Enterprise.</p></div>
+      <div><svg><use href="#i-flag"/></svg><h3>Responsible disclosure</h3><p>Found something? We want to hear about it, with safe harbour for good-faith research.</p></div>
+    </div>
+    <div class="section-foot reveal" style="margin-top:26px"><span></span><a href="disclosure.html" class="link-arrow">Read our disclosure policy <svg><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<section class="section" id="documents" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Documents</span>
+        <h2 class="h2 words">For your <span class="it accent">vendor review.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">Ask for these when you assess Fortis. Some are being finalised during early access.</p>
+    </div>
+    <div class="docs-list reveal">
+      <a href="privacy.html"><span>Privacy policy<small>How we handle personal data</small></span><span class="status-pill">DRAFT</span></a>
+      <a href="terms.html"><span>Terms of service<small>Including the testing authorisation</small></span><span class="status-pill">DRAFT</span></a>
+      <a href="disclosure.html"><span>Responsible disclosure<small>How to report a vulnerability in Fortis</small></span><span class="status-pill ok">LIVE</span></a>
+      <a href="contact.html?topic=security"><span>Data processing agreement<small>NDPA 2023, on request</small></span><svg><use href="#i-arrow"/></svg></a>
+      <a href="contact.html?topic=security"><span>Security questionnaire<small>Pre-filled answers, on request</small></span><svg><use href="#i-arrow"/></svg></a>
+      <a href="contact.html?topic=security"><span>Pentest summary<small>Available after our first independent test</small></span><span class="status-pill">PLANNED</span></a>
+    </div>
+
+    <h3 class="h4 reveal" style="margin:56px 0 18px">Planned sub-processors</h3>
+    <div class="subp-wrap reveal">
+      <table class="subp">
+        <thead><tr><th>Purpose</th><th>Category</th><th>Data</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Application hosting</td><td>Cloud infrastructure</td><td>Workspace data, findings</td><td>Africa region</td></tr>
+          <tr><td>Transactional email</td><td>Email delivery</td><td>Name, email address</td><td>To be confirmed</td></tr>
+          <tr><td>Payments</td><td>Nigerian payment processor</td><td>Billing contact, invoices</td><td>Nigeria</td></tr>
+          <tr><td>SMS one-time passcodes</td><td>Nigerian SMS provider</td><td>Phone number</td><td>Nigeria</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small reveal" style="margin-top:12px">We'll publish named sub-processors before general availability and give customers 30 days' notice of changes.</p>
+  </div>
+</section>

@@ -1,0 +1,4 @@
+Contact: mailto:security@fortis.dev
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: en
+Policy: https://fortis.dev/disclosure.html

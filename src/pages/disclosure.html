@@ -1,0 +1,47 @@
+<!--meta {"title": "Responsible disclosure · Fortis", "description": "How to report a security vulnerability in Fortis, what's in scope, and our safe harbour for good-faith research.", "nav": "", "cta": false} -->
+<section class="page-hero dark-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span style="color:#93A0B8">Legal</span><span class="sep">/</span><span style="color:#93A0B8">Responsible disclosure</span></nav>
+    <span class="eyebrow reveal">Security</span>
+    <h1 class="words">Found a vulnerability? <span class="it accent-mint">Tell us.</span></h1>
+    <p class="lead reveal" style="--d:150ms">We build security tools, so we take reports about Fortis seriously. If you act in good faith under this policy, we won't pursue legal action against you.</p>
+    <div class="hero-actions reveal" style="--d:250ms">
+      <a href="mailto:security@fortis.dev" class="btn btn-primary">Email security@fortis.dev <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:60px">
+  <div class="container legal">
+    <nav class="toc" aria-label="Contents">
+      <strong>Contents</strong>
+      <a href="#report">How to report</a><a href="#scope">Scope</a><a href="#out">Out of scope</a><a href="#rules">Rules of engagement</a><a href="#harbour">Safe harbour</a><a href="#expect">What to expect</a><a href="#thanks">Recognition</a>
+    </nav>
+    <div class="prose">
+      <h2 id="report">How to report</h2>
+      <p>Email <a href="mailto:security@fortis.dev">security@fortis.dev</a> with:</p>
+      <ul><li>what you found and where (URL, package or component);</li><li>steps to reproduce, and a proof of concept if you have one;</li><li>the impact you think it has;</li><li>how you'd like to be credited, if at all.</li></ul>
+      <p>Please don't include customer data in your report. If you came across any, tell us what kind, and delete it.</p>
+
+      <h2 id="scope">Scope</h2>
+      <ul><li>The Fortis web app and API (<code>app.fortis.dev</code>, <code>api.fortis.dev</code>)</li><li>Evidence verification links (<code>verify.fortis.dev</code>)</li><li>The Fortis Guard CLI and its published npm packages</li><li>This website</li></ul>
+
+      <h2 id="out">Out of scope</h2>
+      <ul><li>Denial-of-service, load or spam testing</li><li>Social engineering or phishing of Fortis staff or customers</li><li>Physical attacks on our offices or providers</li><li>Customer systems tested through Fortis; report those to the customer</li><li>Findings from automated scanners with no demonstrated impact</li><li>Missing headers or best practices with no clear security impact</li></ul>
+
+      <h2 id="rules">Rules of engagement</h2>
+      <ul><li>Use only accounts you created, and never access other customers' data.</li><li>Stop and report as soon as you confirm a vulnerability; don't go further than needed to show it.</li><li>Don't degrade the service for others.</li><li>Give us reasonable time to fix the issue before telling anyone else.</li></ul>
+
+      <h2 id="harbour">Safe harbour</h2>
+      <p>If you follow this policy, we'll consider your research authorised, we won't take legal action against you, and if a third party does, we'll make it known that you acted under this policy.</p>
+
+      <h2 id="expect">What to expect</h2>
+      <table><thead><tr><th>Step</th><th>Target time</th></tr></thead><tbody><tr><td>Acknowledge your report</td><td>2 business days</td></tr><tr><td>Initial assessment and severity</td><td>5 business days</td></tr><tr><td>Fix for critical issues</td><td>As fast as possible, aiming for 7 days</td></tr><tr><td>Fix for other issues</td><td>Within 90 days</td></tr></tbody></table>
+      <p>We'll keep you updated and tell you when it's fixed.</p>
+
+      <h2 id="thanks">Recognition</h2>
+      <p>With your permission, we'll thank you publicly once the issue is fixed. A paid bug bounty will follow after general availability.</p>
+      <p class="small">A machine-readable version of our contact details is at <a href=".well-known/security.txt">/.well-known/security.txt</a>.</p>
+    </div>
+  </div>
+</section>

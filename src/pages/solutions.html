@@ -1,0 +1,143 @@
+<!--meta {"title": "Solutions · Fortis", "description": "How Fortis helps developers, security leads, compliance teams and partner banks at fintechs, PSPs, microfinance banks and digital lenders.", "nav": "solutions", "cta": true} -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span>Solutions</span></nav>
+    <span class="eyebrow reveal">Solutions</span>
+    <h1 class="words">One tool. <span class="it accent">Four people who need it.</span></h1>
+    <p class="lead reveal" style="--d:150ms">Developers want fast answers. Security leads want visibility. Compliance wants proof. Partner banks want to trust who they connect to. Fortis gives each of them what they need from the same work.</p>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="On this page">
+  <div class="container">
+    <a href="#developers">Developers</a><a href="#security">Security leads</a><a href="#compliance">Compliance</a><a href="#banks">Partner banks</a><a href="#who">Who we serve</a>
+  </div>
+</nav>
+
+<section class="persona" id="developers">
+  <div class="container feature">
+    <div>
+      <span class="eyebrow reveal">For developers</span>
+      <h2 class="words">Fix it in the terminal, <span class="it accent">not in a meeting.</span></h2>
+      <p class="lead reveal">Fortis tells you what's wrong, where, and how to fix it, before you push. No PDF, no ticket from security three months later.</p>
+      <div class="pain-gain reveal">
+        <div class="pain"><h4>Today</h4><ul><li>Security findings arrive months after you wrote the code</li><li>Reports are long and generic</li><li>No fast way to check before you push</li></ul></div>
+        <div class="gain"><h4>With Fortis</h4><ul><li>Feedback in seconds, on the push</li><li>Exact file, line and code fix</li><li>Rules that understand payments code</li></ul></div>
+      </div>
+      <a href="product.html#guard" class="link-arrow reveal" style="margin-top:28px">See Fortis Guard <svg><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="visual navy reveal" style="--d:150ms">
+      <div class="term typed">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="body" style="padding:20px 22px;font-size:13px">
+          <div class="ln" style="--l:0"><span class="c-g">$</span> git push</div>
+          <div class="ln" style="--l:1"><span class="c-r">✖ PUSH BLOCKED</span> · live Paystack key</div>
+          <div class="ln" style="--l:2">  <span class="c-m">src/config.ts:4</span></div>
+          <div class="ln" style="--l:3">  <span class="c-g">fix</span> move to PAYSTACK_SECRET_KEY env var</div>
+          <div class="ln" style="--l:4">  <span class="c-g">fix</span> rotate the key in your Paystack dashboard</div>
+          <div class="ln" style="--l:5">&nbsp;</div>
+          <div class="ln" style="--l:6"><span class="c-g">$</span> git push</div>
+          <div class="ln" style="--l:7"><span class="c-g">✓ All checks passed</span> · pushed in 6.2s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="persona" id="security">
+  <div class="container feature flip">
+    <div>
+      <span class="eyebrow reveal">For security leads</span>
+      <h2 class="words">See every release. <span class="it accent">Gate the risky ones.</span></h2>
+      <p class="lead reveal">One dashboard for every service and team: what's open, what's overdue, and whether the release gate passed. You stop chasing developers and start setting standards.</p>
+      <div class="pain-gain reveal">
+        <div class="pain"><h4>Today</h4><ul><li>No view of what each release changes</li><li>One security person for many teams</li><li>Findings tracked in spreadsheets</li></ul></div>
+        <div class="gain"><h4>With Fortis</h4><ul><li>Findings and fixes across all services</li><li>Release gates in CI on criticals</li><li>Fix deadlines by severity</li></ul></div>
+      </div>
+      <a href="product.html#dashboard" class="link-arrow reveal" style="margin-top:28px">See the dashboard <svg><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="visual reveal" style="--d:150ms">
+      <div class="gate">
+        <div class="gate-head"><strong>Findings per release</strong><span>last 12 releases · paywave-api</span></div>
+        <div class="bars">
+          <i style="--h:70%;--c:30%;--k:0"></i><i style="--h:55%;--c:20%;--k:1"></i><i style="--h:80%;--c:35%;--k:2"></i><i style="--h:60%;--c:18%;--k:3"></i><i style="--h:45%;--c:12%;--k:4"></i><i style="--h:50%;--c:10%;--k:5"></i><i style="--h:38%;--c:6%;--k:6"></i><i style="--h:30%;--c:4%;--k:7"></i><i style="--h:34%;--c:0%;--k:8"></i><i style="--h:24%;--c:0%;--k:9"></i><i style="--h:20%;--c:3%;--k:10"></i><i style="--h:16%;--c:0%;--k:11"></i>
+        </div>
+        <div class="bars-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <div class="gate-legend"><span><i></i>All findings</span><span><i class="r"></i>Critical</span></div>
+      </div>
+      <span class="visual-cap">Illustrative data</span>
+    </div>
+  </div>
+</section>
+
+<section class="persona" id="compliance">
+  <div class="container feature">
+    <div>
+      <span class="eyebrow reveal">For compliance</span>
+      <h2 class="words">Evidence, <span class="it accent">not promises.</span></h2>
+      <p class="lead reveal">When an auditor, supervisor or partner bank asks how you test security, show them a year of findings, fixes and re-tests, mapped to the control areas they care about.</p>
+      <div class="pain-gain reveal">
+        <div class="pain"><h4>Today</h4><ul><li>Evidence gathered by hand before each review</li><li>One pentest report as the only proof</li><li>Questionnaires answered from memory</li></ul></div>
+        <div class="gain"><h4>With Fortis</h4><ul><li>A continuous, timestamped trail</li><li>CBN, NDPA and PCI DSS areas mapped</li><li>Export or share a verifiable link</li></ul></div>
+      </div>
+      <a href="product.html#evidence" class="link-arrow reveal" style="margin-top:28px">See the evidence pack <svg><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="reveal" style="--d:150ms;padding:20px 10px 30px">
+      <div class="doc">
+        <div class="doc-head"><div><div class="lg"><svg><use href="#i-logo"/></svg>Control coverage</div><small>Q4 2026 · all services</small></div><span class="status-pill ok">CURRENT</span></div>
+        <div class="doc-row"><span>Secure development (SDLC)</span><span class="c">CBN</span><span class="pill p-ok">Evidenced</span></div>
+        <div class="doc-row"><span>Vulnerability management</span><span class="c">CBN · PCI 6</span><span class="pill p-ok">Evidenced</span></div>
+        <div class="doc-row"><span>Security of processing</span><span class="c">NDPA</span><span class="pill p-ok">Evidenced</span></div>
+        <div class="doc-row"><span>Annual third-party test</span><span class="c">CBN · PCI 11</span><span class="pill p-high">Due Mar</span></div>
+        <div class="doc-row" style="border-bottom:0"><span>Open critical findings</span><span class="c">target 0</span><span class="pill p-ok">0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="persona" id="banks">
+  <div class="container feature flip">
+    <div>
+      <span class="eyebrow reveal">For partner banks</span>
+      <h2 class="words">Verify the fintechs <span class="it accent">you connect to.</span></h2>
+      <p class="lead reveal">Supervisors are asking banks to look past their own perimeter. A verifiable Fortis link lets a fintech share live evidence with your vendor-risk team, without a 200-question spreadsheet.</p>
+      <div class="pain-gain reveal">
+        <div class="pain"><h4>Today</h4><ul><li>Self-reported questionnaires</li><li>Year-old pentest summaries</li><li>No way to check what's current</li></ul></div>
+        <div class="gain"><h4>With Fortis</h4><ul><li>Live, verifiable evidence links</li><li>Current open findings by severity</li><li>Expiring access you control</li></ul></div>
+      </div>
+      <p class="small reveal" style="margin-top:18px">Bank acceptance of Fortis evidence is being validated with design partners.</p>
+    </div>
+    <div class="visual reveal" style="--d:150ms">
+      <div class="verify">
+        <div class="verify-top"><span class="ok"><svg><use href="#i-check"/></svg></span><div><strong>Evidence verified</strong><small>verify.fortis.dev · signed by Fortis</small></div></div>
+        <dl>
+          <div><dt>Organisation</dt><dd>PayWave Ltd</dd></div>
+          <div><dt>Period</dt><dd>1 Oct – 31 Dec 2026</dd></div>
+          <div><dt>Releases checked</dt><dd>212</dd></div>
+          <div><dt>Open critical</dt><dd style="color:var(--green)">0</dd></div>
+          <div><dt>Median fix time (critical)</dt><dd>1.4 days</dd></div>
+          <div><dt>Last third-party test</dt><dd>Mar 2026</dd></div>
+        </dl>
+      </div>
+      <span class="visual-cap">Illustrative company and data</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="who" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Who we serve</span>
+        <h2 class="h2 words">Built for regulated <span class="it accent">money movers.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">Starting in Nigeria, then Kenya, Ghana and South Africa.</p>
+    </div>
+    <div class="who">
+      <div class="reveal"><svg><use href="#i-zap"/></svg><h3>Fintechs and PSPs</h3><p>Payment apps, wallets and switches shipping daily, under CBN licensing and partner-bank reviews.</p></div>
+      <div class="reveal" style="--d:80ms"><svg><use href="#i-bank"/></svg><h3>Microfinance banks</h3><p>MFBs with in-house engineering that need SDLC testing and evidence for examiners.</p></div>
+      <div class="reveal" style="--d:160ms"><svg><use href="#i-trend"/></svg><h3>Digital lenders</h3><p>Lending apps holding BVNs and bank data, under FCCPC and NDPA scrutiny.</p></div>
+      <div class="reveal" style="--d:240ms"><svg><use href="#i-sign"/></svg><h3>Banks</h3><p>Banks with their own development teams, and vendor-risk teams reviewing fintech partners.</p></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<!--meta {"title": "FAQ · Fortis", "description": "Answers about Fortis: how it works, what data it sees, staging checks, the evidence pack, pricing and early access.", "nav": "", "cta": false} -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span>FAQ</span></nav>
+    <span class="eyebrow reveal">Questions</span>
+    <h1 class="words">Straight <span class="it accent">answers.</span></h1>
+    <p class="lead reveal" style="--d:150ms">Everything teams ask us about Fortis, from what it checks to what it costs. Can't find yours? Ask us directly.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:60px">
+  <div class="container faq-layout">
+    <div>
+      <div class="faq-tools reveal">
+        <label class="search"><svg><use href="#i-search"/></svg><span class="sr-only">Search questions</span><input type="search" id="faq-search" placeholder="Search questions…" autocomplete="off"></label>
+        <div class="cats" role="group" aria-label="Filter by topic">
+          <button class="on" data-cat="all">All</button><button data-cat="product">Product</button><button data-cat="security">Security</button><button data-cat="compliance">Compliance</button><button data-cat="pricing">Pricing</button>
+        </div>
+      </div>
+
+      <div class="faq-group" data-group="product">
+        <h2>Product</h2>
+        <div class="faq">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What is Fortis?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Fortis is continuous security testing for fintech teams. A CLI checks code before every push, staging checks run after every deploy, and every finding, fix and re-test becomes evidence for your pentester, partner banks and auditors.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Does Fortis replace our annual pentest?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Regulators still require a human third-party test, and people still find flaws tools miss. Fortis covers the releases in between, and gives your tester verified findings to start from.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How is Fortis different from Snyk, Semgrep or GitHub scanning?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Those are good general tools. Fortis focuses on fintech: payment-provider keys, ownership checks on money movement, webhook signatures, balance updates and BVN/NIN exposure. It adds staging access checks with your own test users, an evidence pack mapped to CBN and NDPA areas, and naira pricing.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Which languages are supported?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Node.js and TypeScript first. The next language is being chosen with design partners; Python, Java/Kotlin and PHP are the most requested.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Will it slow down our pushes?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The pre-push check only scans changed files, with a target of under ten seconds. Full-repository scans run in CI, where time matters less.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What happens when a push is blocked?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The CLI prints the rule, file, line and suggested fix. Fix it and push again. If it's a false positive, mark it with a reason; that decision is recorded as evidence and visible to your security lead.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-group" data-group="security">
+        <h2>Security and data</h2>
+        <div class="faq">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Does Fortis upload our source code?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Analysis runs on the developer's laptop or in your CI. Only finding details (rule, file, line, a masked snippet) are sent to Fortis. <a href="trust.html#data" style="color:var(--green);font-weight:700">See exactly what we receive.</a></p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Can Fortis attack production?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Active checks only run against staging targets you've verified by DNS, using your own test users, and are read-only by default. Targets flagged as production are refused.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Where is our data hosted?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>In an Africa cloud region by default. Enterprise customers can choose hosting in Nigeria, or run the check runner on their own infrastructure.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do we report a vulnerability in Fortis?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Email security@fortis.dev, or follow our <a href="disclosure.html" style="color:var(--green);font-weight:700">responsible disclosure policy</a>. We acknowledge reports within two business days.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-group" data-group="compliance">
+        <h2>Compliance</h2>
+        <div class="faq">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Will regulators accept the evidence pack?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The pack maps findings, fixes and re-tests to CBN, NDPA and PCI DSS control areas. It's designed as input for your pentester, partner banks and auditors, not as a substitute for required tests. We're validating acceptance with design partners.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Do you sign a data processing agreement?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Yes. Every customer gets a DPA under the Nigeria Data Protection Act 2023.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Can we share evidence with a partner bank?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Yes. Create a verifiable share link that expires. The bank sees a summary of your testing and open findings, and can confirm the link was issued by Fortis.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-group" data-group="pricing">
+        <h2>Pricing and early access</h2>
+        <div class="faq">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What's in the free plan?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Secret and dependency scanning with a pre-push hook for one project, free forever. Fortis Core adds the fintech rule pack, payment-provider secrets, the dashboard and a basic evidence pack.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How much does Fortis cost?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Fortis Core is ₦100,000 a month and Fortis Plus is ₦350,000 a month, with two months free on annual billing. Enterprise is priced to your needs. <a href="pricing.html" style="color:var(--green);font-weight:700">See all plans.</a></p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Can we pay in naira?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Yes. All plans are billed in naira, by local card or bank transfer.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do we become a design partner?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p><a href="contact.html" style="color:var(--green);font-weight:700">Join early access</a> and tell us about your team. Design partners get locked early pricing and help shape the rule pack.</p></div></div>
+        </div>
+      </div>
+      <p class="empty" id="faq-empty">No questions match that search. <a href="contact.html" style="color:var(--green);font-weight:700">Ask us instead.</a></p>
+    </div>
+
+    <aside class="aside-card reveal">
+      <span class="eyebrow" style="color:var(--mint)">Still curious?</span>
+      <h3>Talk to the team.</h3>
+      <p>We'll answer within one business day, and can walk you through a live demo on your own code.</p>
+      <a href="contact.html" class="btn btn-primary">Contact us <svg><use href="#i-arrow"/></svg></a>
+    </aside>
+  </div>
+</section>

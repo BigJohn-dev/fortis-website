@@ -1,0 +1,145 @@
+<!--meta {"title": "Fortis vs VAPT, pentests and regular tests · Fortis", "description": "How Fortis compares with regular software tests, vulnerability assessments and penetration tests, and how the four work together across a release year.", "nav": "compare", "cta": true} -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span>Why Fortis</span></nav>
+    <span class="eyebrow reveal">Why Fortis</span>
+    <h1 class="words">Regular tests, VAPT, pentests <span class="it accent">and Fortis.</span></h1>
+    <p class="lead reveal" style="--d:150ms">Four kinds of testing answer four different questions. Here's what each one does, where it falls short, and how Fortis fills the gap between them.</p>
+    <div class="hero-actions reveal" style="--d:250ms">
+      <a href="#matrix" class="btn btn-primary">See the comparison <svg><use href="#i-arrow"/></svg></a>
+      <a href="#together" class="btn btn-ghost">How they fit together <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom:0">
+  <div class="container pitch">
+    <blockquote class="words">Pentesters check your app once a year. <span class="it accent">Fortis checks every release in between,</span> and hands your pentester the evidence.</blockquote>
+  </div>
+</section>
+
+<!-- MATRIX -->
+<section class="section" id="matrix">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Side by side</span>
+        <h2 class="h2 words">Four kinds of testing. <span class="it accent">Four questions.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">VAPT combines two things: a vulnerability assessment (VA) and a penetration test (PT). We show them separately because they work very differently.</p>
+    </div>
+    <div class="matrix-wrap reveal">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Criteria</span></th>
+            <th scope="col">Regular tests<small>Unit, integration, end-to-end, QA</small></th>
+            <th scope="col">Vulnerability assessment<small>The "VA" in VAPT</small></th>
+            <th scope="col">Penetration test<small>The "PT" in VAPT</small></th>
+            <th scope="col" class="us">Fortis<small>Continuous, in the workflow</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Question it answers</th><td>Does the app do what it should?</td><td>Which known weaknesses are exposed?</td><td>Can a skilled attacker actually break in?</td><td class="us">Did this release add a security risk, and is it fixed?</td></tr>
+          <tr><th scope="row">Who runs it</th><td>Your developers and QA</td><td>Scanner tools, often run by a security firm</td><td>Human ethical hackers</td><td class="us">The CLI and staging checks, automatically</td></tr>
+          <tr><th scope="row">How often</th><td>Every change, in CI</td><td>Quarterly or yearly</td><td>Once or twice a year</td><td class="us">Every push and every deploy</td></tr>
+          <tr><th scope="row">When it runs</th><td>Before release</td><td>After release, on the live system</td><td>After release, on live or staging</td><td class="us">Before code leaves the laptop, in CI, and on staging</td></tr>
+          <tr><th scope="row">What it finds</th><td>Broken features and regressions</td><td>Known CVEs, misconfigurations, outdated software</td><td>Chained attacks, business-logic flaws, real exploitability</td><td class="us">Leaked payment keys, missing ownership checks, unsafe balance updates, BVN/NIN exposure, vulnerable dependencies</td></tr>
+          <tr><th scope="row">Thinks like an attacker?</th><td><span class="no">No</span> · checks the intended path</td><td><span class="part">Partly</span> · matches a list</td><td><span class="yes">Yes</span> · that's the point</td><td class="us"><span class="yes">Yes</span>, for fintech-specific patterns, automatically</td></tr>
+          <tr><th scope="row">Fintech knowledge</th><td>Whatever your team writes</td><td>Generic checklists</td><td>Depends on the tester</td><td class="us">Built in: Paystack, Flutterwave, Monnify, transfers, wallets, KYC data</td></tr>
+          <tr><th scope="row">Output</th><td>Pass or fail</td><td>A long scanner report</td><td>A PDF report, weeks later</td><td class="us">File, line and fix in minutes, plus dashboard and evidence pack</td></tr>
+          <tr><th scope="row">Proof of fixes</th><td>The test goes green</td><td>Rescan, sometimes paid</td><td>Re-test usually costs extra</td><td class="us">One-click re-check with full history</td></tr>
+          <tr><th scope="row">Typical cost</th><td>Developer time</td><td>About ₦0.5m–₦3m a round</td><td>About ₦1.5m–₦12m an engagement</td><td class="us">From ₦100,000 a month</td></tr>
+          <tr><th scope="row">Satisfies the annual third-party test?</th><td><span class="no">No</span></td><td><span class="part">Partly</span></td><td><span class="yes">Yes</span></td><td class="us"><span class="part">No</span> · supports it with continuous evidence</td></tr>
+          <tr><th scope="row">Biggest weakness</th><td>Blind to security</td><td>Noisy, generic, point-in-time</td><td>Expensive, rare, a snapshot</td><td class="us">Can't match human creativity on complex logic flaws</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">Swipe the table sideways to see all four →</p>
+    <p class="small reveal" style="margin-top:14px">Cost ranges are indicative, from vendor-published Nigerian ranges, and vary with scope.</p>
+  </div>
+</section>
+
+<!-- YEAR -->
+<section class="section" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">A release year</span>
+        <h2 class="h2 words">One pentest. <span class="it accent">Two hundred releases.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">A team that ships four times a week makes about 200 releases a year. Here's what each kind of testing sees.</p>
+    </div>
+    <div class="year reveal" id="year">
+      <div class="year-row"><strong>Releases<small>~4 a week</small></strong><div class="track" data-track="releases"></div></div>
+      <div class="year-row"><strong>Pentest<small>once a year</small></strong><div class="track" data-track="pentest"></div></div>
+      <div class="year-row"><strong>Vulnerability scan<small>quarterly</small></strong><div class="track" data-track="va"></div></div>
+      <div class="year-row"><strong>Fortis<small>every release</small></strong><div class="track" data-track="fortis"></div></div>
+      <div class="months"><span></span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOGETHER -->
+<section class="section" id="together">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">How they fit together</span>
+        <h2 class="h2 words">Not a replacement. <span class="it accent">The missing layer.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">Each layer catches what the one before it can't. Fortis sits between your own tests and the annual human test.</p>
+    </div>
+    <div class="layers">
+      <div class="layer reveal" style="--c:#9AA6BD"><span class="bar-k"></span><h3>Regular tests<small>Your CI today</small></h3><p>Prove the app works for customers: payments go through, balances add up, screens load.</p><span class="freq">every change</span></div>
+      <div class="layer us reveal" style="--d:80ms;--c:var(--mint)"><span class="bar-k"></span><h3>Fortis<small>Continuous security</small></h3><p>Proves the app doesn't also work for attackers: no leaked keys, no reading other people's transfers, no BVNs in logs.</p><span class="freq">every push + deploy</span></div>
+      <div class="layer reveal" style="--d:160ms;--c:#3D7BFF"><span class="bar-k"></span><h3>Vulnerability assessment<small>Periodic scans</small></h3><p>Sweeps your live estate for known weaknesses and misconfigurations.</p><span class="freq">quarterly</span></div>
+      <div class="layer reveal" style="--d:240ms;--c:var(--amber)"><span class="bar-k"></span><h3>Penetration test<small>Human, third party</small></h3><p>Goes deep on business logic and chained attacks, and satisfies the regulator. Starts from Fortis evidence.</p><span class="freq">1–2× a year</span></div>
+    </div>
+    <div class="callout-row">
+      <div class="note reveal"><h4>Pitch line for your engineering team</h4><p>"Your tests check the app works for customers. Fortis checks it doesn't also work for attackers."</p></div>
+      <div class="note reveal" style="--d:100ms"><h4>Pitch line for your compliance team</h4><p>"The pentest is still required. Fortis makes sure nothing slips through in the eleven months between tests, and gives the tester a head start."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MYTHS -->
+<section class="section" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">Common questions</span>
+        <h2 class="h2 words">What people <span class="it accent">usually assume.</span></h2>
+      </div>
+    </div>
+    <div class="myths">
+      <div class="myth reveal"><span class="m">Assumption</span><h3>"Our tests pass, so we're secure."</h3><span class="f">In practice</span><p>Tests check the path a customer takes. Attackers take other paths: changing an ID, replaying a request, skipping a step. Tests rarely look for those.</p></div>
+      <div class="myth reveal" style="--d:80ms"><span class="m">Assumption</span><h3>"We had a pentest in March, so we're covered."</h3><span class="f">In practice</span><p>The pentest covered the code as it was in March. Every release since then has shipped without a security check.</p></div>
+      <div class="myth reveal" style="--d:160ms"><span class="m">Assumption</span><h3>"A scanner is the same as a pentest."</h3><span class="f">In practice</span><p>Scanners match known patterns. Testers think. Fortis adds fintech-specific patterns in the workflow, but you still need people for the deep work.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LANDSCAPE -->
+<section class="section">
+  <div class="container">
+    <div class="split-head">
+      <div>
+        <span class="eyebrow reveal">The landscape</span>
+        <h2 class="h2 words">Where Fortis sits <span class="it accent">among the tools.</span></h2>
+      </div>
+      <p class="lead reveal" style="--d:120ms">Generic code scanning is a commodity. Fortis differentiates on fintech-specific rules, the developer workflow, and Nigerian evidence.</p>
+    </div>
+    <div class="matrix-wrap reveal">
+      <table class="matrix" style="min-width:820px">
+        <thead><tr><th scope="col">Category</th><th scope="col">Strength</th><th scope="col">Gap</th><th scope="col" class="us">What Fortis adds</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Consultancy VAPT</th><td>Human depth, regulator familiarity</td><td>Not in the developer workflow; little fintech automation</td><td class="us">Checks between engagements, and evidence for the tester</td></tr>
+          <tr><th scope="row">Attack-surface management</th><td>External view of exposure</td><td>Doesn't test code before release</td><td class="us">Catches issues before they're exposed</td></tr>
+          <tr><th scope="row">Global code security</th><td>Mature secret, dependency and code scanning</td><td>Not fintech-aware; no Nigerian evidence; dollar pricing</td><td class="us">Fintech rules, CBN/NDPA mapping, naira pricing</td></tr>
+          <tr><th scope="row">API testing in CI</th><td>Automated API attacks</td><td>Generic checks; no local compliance mapping</td><td class="us">Ownership checks with your test users, mapped evidence</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

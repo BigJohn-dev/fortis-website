@@ -115,6 +115,7 @@
   /* ---------- Connected model tabs ---------- */
   const TAB_MS = 6500;
   const model = $('#model');
+  if (model) {
   const tabs = $$('.model-tab', model);
   const panes = $$('.model-pane', model);
   const term = $('#model-term');
@@ -174,6 +175,7 @@
     if (entries[0].isIntersecting && !started) { started = true; setTab(0); }
   }, { threshold: 0.3 }).observe(model);
   $$('[data-tab]').forEach((a) => a.addEventListener('click', () => { started = true; setTab(Number(a.dataset.tab), true); }));
+  }
 
   /* ---------- Showcase: terminal + findings fixing ---------- */
   const SHOW = [
@@ -190,10 +192,10 @@
     [5900, '<span class="c-g">✓ All checks passed</span> · 0 critical · pushed'],
   ];
   const showTerm = $('#show-term');
-  showTerm.innerHTML = SHOW.map(([, l]) => `<div class="ln">${l}</div>`).join('');
+  if (showTerm) showTerm.innerHTML = SHOW.map(([, l]) => `<div class="ln">${l}</div>`).join('');
   let showcaseRan = false;
   function runShowcase() {
-    if (showcaseRan) return; showcaseRan = true;
+    if (showcaseRan || !showTerm) return; showcaseRan = true;
     const lines = $$('.ln', showTerm);
     lines.forEach((ln, i) => setTimeout(() => ln.classList.add('on'), reduce ? 0 : SHOW[i][0]));
     setTimeout(() => {
@@ -201,8 +203,8 @@
       const crit = $('#dash-crit'); crit.textContent = '0'; crit.classList.remove('red'); crit.classList.add('green');
     }, reduce ? 0 : 6100);
   }
-  const showWin = $('#show-term').closest('[data-win]');
-  showWin.id = 'findings-win';
+  const showWin = showTerm && showTerm.closest('[data-win]');
+  if (showWin) showWin.id = 'findings-win';
 
   /* ---------- Pricing toggle ---------- */
   $$('[data-bill]').forEach((b) => b.addEventListener('click', () => {
@@ -238,23 +240,141 @@
     parallax();
   }
 
-  /* ---------- Early access form ---------- */
+  /* ---------- Early access / contact form ---------- */
   const formWrap = $('#ea-form');
-  const form = $('form', formWrap);
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let ok = true;
-    $$('input[required]', form).forEach((input) => {
-      const valid = input.type === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim()) : input.value.trim().length > 1;
-      input.closest('.field').classList.toggle('err', !valid);
-      if (!valid) ok = false;
+  const form = formWrap && $('form', formWrap);
+  if (form) {
+    const params = new URLSearchParams(location.search);
+    const plan = params.get('plan');
+    const topic = params.get('topic');
+    if (plan && $('#plan-select')) $('#plan-select').value = plan;
+    if (topic) { const r = $(`input[name=topic][value="${CSS.escape(topic)}"]`, form); if (r) r.checked = true; }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let ok = true;
+      $$('input[required]', form).forEach((input) => {
+        const valid = input.type === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim()) : input.value.trim().length > 1;
+        input.closest('.field').classList.toggle('err', !valid);
+        if (!valid) ok = false;
+      });
+      if (!ok) { const bad = $('.field.err input', form); if (bad) bad.focus(); return; }
+      const btn = $('button[type=submit]', form);
+      btn.disabled = true;
+      btn.firstChild.textContent = 'Sending… ';
+      // Placeholder: wire to your form backend (e.g. Formspree, a serverless function or a CRM).
+      setTimeout(() => formWrap.classList.add('sent'), 700);
     });
-    if (!ok) return;
-    const btn = $('button[type=submit]', form);
-    btn.disabled = true;
-    btn.firstChild.textContent = 'Sending… ';
-    // Placeholder: wire to your form backend (e.g. Formspree, a serverless function or a CRM).
-    setTimeout(() => formWrap.classList.add('sent'), 700);
+    $$('input', form).forEach((i) => i.addEventListener('input', () => { const f = i.closest('.field'); if (f) f.classList.remove('err'); }));
+  }
+
+  /* ---------- Copy buttons ---------- */
+  $$('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy); } catch { return; }
+    const label = b.lastChild;
+    const prev = label.textContent;
+    b.classList.add('done'); label.textContent = 'Copied';
+    setTimeout(() => { b.classList.remove('done'); label.textContent = prev; }, 1600);
+  }));
+
+  /* ---------- Scroll-spy for sub navigation and legal contents ---------- */
+  const spyLinks = $$('.subnav a[href^="#"], .toc a[href^="#"]');
+  if (spyLinks.length) {
+    const targets = spyLinks.map((a) => $(a.getAttribute('href'))).filter(Boolean);
+    const setOn = (id) => spyLinks.forEach((a) => {
+      const on = a.getAttribute('href') === `#${id}`;
+      a.classList.toggle('on', on);
+      if (on && a.closest('.subnav')) {
+        const bar = a.parentElement;
+        const left = a.offsetLeft - bar.clientWidth / 2 + a.clientWidth / 2;
+        bar.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    });
+    const spy = () => {
+      const y = window.scrollY + 180;
+      let current = null;
+      targets.forEach((t) => { if (t.getBoundingClientRect().top + window.scrollY <= y) current = t.id; });
+      if (current) setOn(current); else spyLinks.forEach((a) => a.classList.remove('on'));
+    };
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+  }
+
+  /* ---------- Pricing calculator ---------- */
+  const calc = $('#calc');
+  if (calc) {
+    const rel = $('#c-rel'), pt = $('#c-pt'), cost = $('#c-cost');
+    let planCost = 1200000;
+    const naira = (n) => (n >= 1e6 ? `₦${(n / 1e6).toFixed(1)}m` : `₦${Math.round(n).toLocaleString('en-US')}`);
+    const fill = (input) => input.style.setProperty('--p', `${((input.value - input.min) / (input.max - input.min)) * 100}%`);
+    const update = () => {
+      const perYear = Number(rel.value) * 12;
+      const tests = Number(pt.value);
+      const ptSpend = tests * Number(cost.value);
+      $('#o-rel').textContent = rel.value;
+      $('#o-pt').textContent = pt.value;
+      $('#o-cost').textContent = naira(Number(cost.value));
+      $('#r-total').textContent = perYear.toLocaleString('en-US');
+      $('#r-seen').textContent = Math.min(tests, perYear);
+      $('#r-gap').firstChild.textContent = Math.max(0, perYear - tests).toLocaleString('en-US');
+      $('#r-fortis').textContent = perYear.toLocaleString('en-US');
+      $('#r-pt').textContent = naira(ptSpend);
+      $('#r-plan').textContent = naira(planCost);
+      $('#r-per').textContent = naira(planCost / perYear);
+      const share = Math.round((planCost / ptSpend) * 100);
+      $('#r-share').textContent = `${share}%`;
+      $('#r-meter').style.setProperty('--w', `${Math.min(100, share)}%`);
+      [rel, pt, cost].forEach(fill);
+    };
+    [rel, pt, cost].forEach((i) => i.addEventListener('input', update));
+    $$('[data-plan]', calc).forEach((b) => b.addEventListener('click', () => {
+      planCost = Number(b.dataset.plan);
+      $$('[data-plan]', calc).forEach((x) => x.classList.toggle('on', x === b));
+      update();
+    }));
+    update();
+  }
+
+  /* ---------- Release-year tracks (compare page) ---------- */
+  $$('[data-track]').forEach((track) => {
+    const kind = track.dataset.track;
+    const dots = [];
+    if (kind === 'releases' || kind === 'fortis') {
+      for (let i = 0; i < 200; i++) dots.push({ x: (i + 0.5) / 2, cls: kind === 'releases' ? 'red' : '' });
+    } else if (kind === 'pentest') {
+      dots.push({ x: 22, cls: 'big' });
+    } else if (kind === 'va') {
+      [10, 35, 60, 85].forEach((x) => dots.push({ x, cls: 'big' }));
+    }
+    track.innerHTML = dots.map((d, k) => `<i class="${d.cls}" style="left:${d.x}%;--k:${Math.min(k, 120)}"></i>`).join('');
+    if (kind === 'releases') $$('i', track).forEach((d) => { d.style.width = d.style.height = '4px'; d.style.margin = '-2px 0 0 -2px'; d.style.background = 'var(--ink-2)'; });
+    if (kind === 'fortis') $$('i', track).forEach((d) => { d.style.width = d.style.height = '5px'; d.style.margin = '-2.5px 0 0 -2.5px'; });
   });
-  $$('input', form).forEach((i) => i.addEventListener('input', () => i.closest('.field').classList.remove('err')));
+
+  /* ---------- FAQ search and filter ---------- */
+  const faqSearch = $('#faq-search');
+  if (faqSearch) {
+    let cat = 'all';
+    const apply = () => {
+      const q = faqSearch.value.trim().toLowerCase();
+      let shown = 0;
+      $$('.faq-group').forEach((g) => {
+        const inCat = cat === 'all' || g.dataset.group === cat;
+        let groupShown = 0;
+        $$('.faq-item', g).forEach((item) => {
+          const match = inCat && (!q || item.textContent.toLowerCase().includes(q));
+          item.hidden = !match;
+          if (match) groupShown++;
+        });
+        g.hidden = groupShown === 0;
+        shown += groupShown;
+      });
+      $('#faq-empty').classList.toggle('on', shown === 0);
+    };
+    faqSearch.addEventListener('input', apply);
+    $$('[data-cat]').forEach((b) => b.addEventListener('click', () => {
+      cat = b.dataset.cat;
+      $$('[data-cat]').forEach((x) => x.classList.toggle('on', x === b));
+      apply();
+    }));
+  }
 })();
