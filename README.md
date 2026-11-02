@@ -55,7 +55,8 @@ The meta header sets the page `title`, `description`, which top-nav item is high
 ```
 assets/css/styles.css design tokens, layout, components, animations (inner pages at the end)
 assets/js/main.js     reveals, mega menus, tabs, terminals, pricing toggle and calculator, FAQ search, scroll-spy, forms
-assets/img/           photos, avatars, favicon
+assets/js/globe.js    hero Earth: WebGL shader with lighting, clouds, city lights and city links (falls back to a static image)
+assets/img/           photos, avatars, favicon, earth/ globe textures
 .well-known/security.txt  security contact for researchers
 ```
 
@@ -65,6 +66,8 @@ assets/img/           photos, avatars, favicon
 - **Email addresses:** `hello@`, `security@`, `press@` and `privacy@fortis.dev` are placeholders. Replace them with your real domain, including in `.well-known/security.txt`.
 
 ## Notes
+
+- Globe textures are NASA Blue Marble and Black Marble imagery (public domain), via the three-globe package. `earth-aux.jpg` packs clouds (red), city lights (green) and the water mask (blue) into one file.
 
 - Photos are AI-generated placeholders. Replace them with real team and customer photos before launch.
 - The characters and company in the examples (Tunde, Amaka, PayWave) are illustrative.

@@ -42,7 +42,8 @@ for (const file of pages) {
     .replaceAll('{{description}}', esc(meta.description))
     .replaceAll('{{page}}', page)
     .replace('{{cta}}', meta.cta ? CTA : '')
-    .replace('{{content}}', body.trimEnd());
+    .replace('{{content}}', body.trimEnd())
+    .replace('{{scripts}}', (meta.scripts || []).map((src) => `<script src="${src}" defer></script>`).join('\n'));
 
   if (meta.nav) {
     html = html.replace(`data-nav="${meta.nav}"`, `data-nav="${meta.nav}" data-current`);
