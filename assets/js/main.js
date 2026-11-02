@@ -210,7 +210,7 @@
   $$('[data-bill]').forEach((b) => b.addEventListener('click', () => {
     const yearly = b.dataset.bill === 'y';
     $$('[data-bill]').forEach((x) => x.classList.toggle('on', x === b));
-    $$('.price[data-m]').forEach((p) => { p.innerHTML = `${yearly ? p.dataset.y : p.dataset.m}<small>/mo</small>`; });
+    $$('.price[data-m]').forEach((p) => { p.innerHTML = `${yearly ? p.dataset.y : p.dataset.m}<small>${yearly ? '/yr' : '/mo'}</small>`; });
     $$('.per[data-m]').forEach((p) => { p.textContent = yearly ? p.dataset.y : p.dataset.m; });
   }));
 
@@ -303,7 +303,7 @@
   const calc = $('#calc');
   if (calc) {
     const rel = $('#c-rel'), pt = $('#c-pt'), cost = $('#c-cost');
-    let planCost = 1200000;
+    let planCost = 5400000;
     const naira = (n) => (n >= 1e6 ? `₦${(n / 1e6).toFixed(1)}m` : `₦${Math.round(n).toLocaleString('en-US')}`);
     const fill = (input) => input.style.setProperty('--p', `${((input.value - input.min) / (input.max - input.min)) * 100}%`);
     const update = () => {
