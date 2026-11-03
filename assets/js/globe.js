@@ -39,7 +39,7 @@
     float d = length(p) / R;
     float aa = uPx / R;
     // atmosphere halo outside the disc
-    float halo = exp(-max(d - 1., 0.) * 9.) * .55 * smoothstep(1.32, 1.0, d);
+    float halo = exp(-max(d - 1., 0.) * 9.) * .55 * (1. - smoothstep(1.0, 1.32, d));
     vec3 haloCol = vec3(.38, .64, 1.) * halo;
     if (d > 1. + aa) { gl_FragColor = vec4(haloCol, halo); return; }
     float dz = sqrt(max(1. - d * d, 0.));
