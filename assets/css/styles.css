@@ -148,8 +148,8 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
 @keyframes wall-spin { to { transform: rotate(360deg); } }
 
 /* Page loader: the app icon with its walls turning, gone once the page has loaded. */
-.loader { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #fff; transition: opacity .45s ease, visibility .45s; animation: loader-out .45s ease 6s forwards; }
-.loader svg { width: 84px; height: 84px; border-radius: 20px; box-shadow: 0 18px 40px -16px rgba(14, 122, 85, .55); }
+.loader { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #fff; transition: opacity .45s ease, visibility .45s; animation: loader-out .45s ease 8s forwards; }
+.loader svg { width: clamp(110px, 30vw, 150px); height: clamp(110px, 30vw, 150px); border-radius: 24%; box-shadow: 0 28px 60px -22px rgba(14, 122, 85, .6); }
 .loader .w1 { --spin: 2.4s; } .loader .w2 { --spin: 1.8s; } .loader .w3 { --spin: 1.3s; }
 .loader.done { opacity: 0; visibility: hidden; }
 @keyframes loader-out { to { opacity: 0; visibility: hidden; } }

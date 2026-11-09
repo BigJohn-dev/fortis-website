@@ -4,11 +4,11 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-  /* ---------- Page loader: hide once everything has loaded (at least half a second, so it doesn't flash) ---------- */
+  /* ---------- Page loader: hide once everything has loaded (at least 1.5 seconds, so the walls get a few turns) ---------- */
   const loader = $('#loader');
   if (loader) {
     const shown = performance.now();
-    const hide = () => setTimeout(() => loader.classList.add('done'), Math.max(0, 500 - (performance.now() - shown)));
+    const hide = () => setTimeout(() => loader.classList.add('done'), Math.max(0, 1500 - (performance.now() - shown)));
     if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide, { once: true });
   }
 
