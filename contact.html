@@ -22,7 +22,8 @@
   <defs>
     <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#13955F"/><stop offset="1" stop-color="#0B5D45"/></linearGradient>
   </defs>
-  <symbol id="i-logo" viewBox="0 0 100 115"><path d="M50 3 L93 19 V56 C93 83 74 101 50 112 C26 101 7 83 7 56 V19 Z" fill="url(#shieldGrad)"/><path d="M30 57 L45 72 L72 43" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="url(#shieldGrad)"/><g fill="none" stroke="#fff" stroke-width="7"><circle cx="50" cy="50" r="36" stroke-dasharray="208.2 18" transform="rotate(104.3 50 50)"/><circle cx="50" cy="50" r="24" stroke-dasharray="136.8 14" transform="rotate(-28.3 50 50)"/><circle cx="50" cy="50" r="13" stroke-dasharray="71.7 10" transform="rotate(202 50 50)"/></g><circle cx="50" cy="50" r="4.5" fill="#fff"/></symbol>
+  <symbol id="i-logo-o" viewBox="0 0 56 56"><g fill="none" stroke="currentColor"><circle cx="28" cy="28" r="23" stroke-width="8" stroke-dasharray="132.5 12" transform="rotate(105 28 28)"/><circle cx="28" cy="28" r="11.5" stroke-width="7" stroke-dasharray="63.3 9" transform="rotate(-22.6 28 28)"/></g><circle cx="28" cy="28" r="4.5" fill="#13955F"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></symbol>
@@ -65,7 +66,7 @@
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="container nav-inner">
-    <a href="index.html" class="logo" aria-label="Fortis home"><svg><use href="#i-logo"/></svg>fortis</a>
+    <a href="index.html" class="logo" aria-label="Fortis home">f<svg aria-hidden="true"><use href="#i-logo-o"/></svg>rtis</a>
 
     <nav aria-label="Main">
       <ul class="nav-links">
@@ -130,7 +131,7 @@
 
 <div class="drawer" id="drawer" aria-hidden="true">
   <div class="drawer-head">
-    <a href="index.html" class="logo"><svg><use href="#i-logo"/></svg>fortis</a>
+    <a href="index.html" class="logo" aria-label="Fortis home">f<svg aria-hidden="true"><use href="#i-logo-o"/></svg>rtis</a>
     <button class="nav-burger" id="drawer-close" aria-label="Close menu" style="display:inline-flex;border-color:rgba(255,255,255,.2);color:#fff"><svg><use href="#i-x"/></svg></button>
   </div>
   <a class="big" href="product.html">Product</a>
@@ -215,7 +216,7 @@
   <div class="container">
     <div class="footer-top">
       <div>
-        <a href="index.html" class="logo"><svg><use href="#i-logo"/></svg>fortis</a>
+        <a href="index.html" class="logo" aria-label="Fortis home">f<svg aria-hidden="true"><use href="#i-logo-o"/></svg>rtis</a>
         <p>Security testing on every release, between your annual pentests. Built for African fintech.</p>
         <a href="docs.html#install" class="footer-cta">Start free <svg><use href="#i-arrow"/></svg></a>
       </div>

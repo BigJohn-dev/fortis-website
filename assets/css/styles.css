@@ -138,8 +138,9 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
 }
 .nav.scrolled { border-color: var(--line); box-shadow: 0 6px 24px rgba(11, 27, 51, 0.05); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 84px; }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 26px; letter-spacing: -0.04em; color: var(--ink); }
-.logo svg { width: 30px; height: 34px; }
+.logo { display: flex; align-items: baseline; font-weight: 800; font-size: 31px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+/* The "o" of the wordmark is the three-walls mark, sized to the x-height. */
+.logo svg { width: .54em; height: .54em; margin: 0 .03em 0 .02em; flex: none; }
 .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .nav-item { position: relative; }
 .nav-trigger {
@@ -352,7 +353,7 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
 .dash { display: grid; grid-template-columns: 170px 1fr; min-height: 470px; }
 .dash-side { background: #FBFCFD; border-right: 1px solid var(--line); padding: 18px 12px; font-size: 13px; }
 .dash-side .lg { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--ink); font-size: 16px; padding: 0 8px 16px; }
-.dash-side .lg svg { width: 18px; height: 20px; }
+.dash-side .lg svg { width: 20px; height: 20px; }
 .dash-side a { display: block; padding: 8px 10px; border-radius: 8px; font-weight: 600; color: var(--ink-2); }
 .dash-side a.on { background: var(--green-tint); color: var(--green); }
 .dash-main { padding: 20px 22px; }
@@ -725,7 +726,7 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
 .doc::after { top: 20px; left: 18px; right: 18px; opacity: .6; }
 .doc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .doc-head .lg { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--ink); }
-.doc-head .lg svg { width: 18px; height: 20px; }
+.doc-head .lg svg { width: 20px; height: 20px; }
 .doc-head small { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin-top: 2px; }
 .doc-row { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; color: var(--ink); font-weight: 600; }
 .doc-row .c { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-weight: 600; }
