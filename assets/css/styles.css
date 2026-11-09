@@ -138,7 +138,7 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
 }
 .nav.scrolled { border-color: var(--line); box-shadow: 0 6px 24px rgba(11, 27, 51, 0.05); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 84px; }
-.logo { display: flex; align-items: baseline; font-weight: 800; font-size: 31px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+.logo { display: flex; align-items: baseline; font-weight: 800; font-size: 31px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
 /* The "o" of the wordmark is the three-walls mark, sized to the x-height. Each wall turns on its own. */
 .logo svg { width: .54em; height: .54em; margin: 0 .03em 0 .02em; flex: none; }
 .walls .wall { transform-box: view-box; transform-origin: 50% 50%; animation: wall-spin var(--spin, 16s) linear infinite; }
@@ -514,7 +514,7 @@ h1, h2, h3, h4 { color: var(--ink); margin: 0; font-weight: 800; letter-spacing:
   align-items: baseline;
   font-weight: 800;
   font-size: clamp(120px, 27vw, 420px);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.035em;
   line-height: 0.78;
   text-align: center;
   color: rgba(255, 255, 255, 0.06);
