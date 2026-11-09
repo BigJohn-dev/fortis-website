@@ -4,6 +4,14 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
+  /* ---------- Page loader: hide once everything has loaded (at least half a second, so it doesn't flash) ---------- */
+  const loader = $('#loader');
+  if (loader) {
+    const shown = performance.now();
+    const hide = () => setTimeout(() => loader.classList.add('done'), Math.max(0, 500 - (performance.now() - shown)));
+    if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide, { once: true });
+  }
+
   /* ---------- Word-by-word headline reveal ---------- */
   $$('.words').forEach((el) => {
     let i = 0;
