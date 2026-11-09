@@ -86,7 +86,7 @@
             <div class="mega-side">
               <span class="eyebrow">Quick actions</span>
               <p>Start free in your terminal, or talk to us about a design-partner pilot.</p>
-              <a href="https://fortis-web.onrender.com/signup">Start free <svg><use href="#i-arrow"/></svg></a>
+              <a href="docs.html#install">Start free <svg><use href="#i-arrow"/></svg></a>
               <a href="pricing.html">See pricing <svg><use href="#i-arrow"/></svg></a>
               <a href="faq.html">Read the FAQ <svg><use href="#i-arrow"/></svg></a>
             </div>
@@ -123,7 +123,7 @@
     </nav>
 
     <a href="https://fortis-web.onrender.com/login" class="nav-signin">Sign in</a>
-    <a href="https://fortis-web.onrender.com/signup" class="btn btn-primary btn-sm nav-cta">Start free</a>
+    <a href="docs.html#install" class="btn btn-primary btn-sm nav-cta">Start free</a>
     <button class="nav-burger" id="burger" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
   </div>
 </header>
@@ -142,7 +142,7 @@
   <a class="big" href="about.html">Company</a>
   <a class="big" href="faq.html">FAQ</a>
   <a class="big" href="https://fortis-web.onrender.com/login">Sign in</a>
-  <a href="https://fortis-web.onrender.com/signup" class="btn btn-primary">Start free <svg><use href="#i-arrow"/></svg></a>
+  <a href="docs.html#install" class="btn btn-primary">Start free <svg><use href="#i-arrow"/></svg></a>
 </div>
 
 <main id="main">
@@ -172,7 +172,7 @@
           <div class="faq-item"><button class="faq-q" aria-expanded="false">What is Fortis?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Fortis is continuous security testing for fintech teams. A CLI checks code before every push, staging checks run after every deploy, and every finding, fix and re-test becomes evidence for your pentester, partner banks and auditors.</p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">Does Fortis replace our annual pentest?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Regulators still require a human third-party test, and people still find flaws tools miss. Fortis covers the releases in between, and gives your tester verified findings to start from.</p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">How is Fortis different from Snyk, Semgrep or GitHub scanning?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Those are good general tools. Fortis focuses on fintech: payment-provider keys, ownership checks on money movement, webhook signatures, balance updates and BVN/NIN exposure. It adds staging access checks with your own test users, an evidence pack mapped to CBN and NDPA areas, and naira pricing.</p></div></div>
-          <div class="faq-item"><button class="faq-q" aria-expanded="false">Which languages are supported?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Node.js and TypeScript first. The next language is being chosen with design partners; Python, Java/Kotlin and PHP are the most requested.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Which languages are supported?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The free checks work in any language. Secrets are found in any file, and dependencies are read for JavaScript, Python, PHP, Java, Kotlin, Scala, Go, .NET, Ruby, Rust, Dart/Flutter, Swift, Elixir, Haskell and R, plus Dockerfiles and GitHub Actions. The fintech code rules cover JavaScript, TypeScript, Python, Go, C#, PHP, Java and Kotlin.</p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">Will it slow down our pushes?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The pre-push check only scans changed files, with a target of under ten seconds. Full-repository scans run in CI, where time matters less.</p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">What happens when a push is blocked?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The CLI prints the rule, file, line and suggested fix. Fix it and push again. If it's a false positive, mark it with a reason; that decision is recorded as evidence and visible to your security lead.</p></div></div>
         </div>
@@ -200,10 +200,10 @@
       <div class="faq-group" data-group="pricing">
         <h2>Pricing and early access</h2>
         <div class="faq">
-          <div class="faq-item"><button class="faq-q" aria-expanded="false">What's in the free plan?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Secret and dependency scanning with a pre-push hook for one project, free forever. Fortis Core adds the fintech rule pack, payment-provider secrets, the dashboard and a basic evidence pack.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What's in the free plan?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The Fortis CLI is free, with no account or key. It blocks leaked keys on every push (including Paystack, Flutterwave, Monnify and Stripe secret keys), finds vulnerable packages, checks Docker images and GitHub Actions, and runs in your CI. <a href="docs.html" style="color:var(--green);font-weight:700">Read the docs.</a> Fortis Core adds the fintech rule pack, the dashboard and a basic evidence pack.</p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">How much does Fortis cost?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Fortis Core is ₦450,000 a month and Fortis Plus is ₦750,000 a month. Enterprise starts at ₦1m a month, tailored to your needs. Paying yearly is twelve times the monthly price. <a href="pricing.html" style="color:var(--green);font-weight:700">See all plans.</a></p></div></div>
           <div class="faq-item"><button class="faq-q" aria-expanded="false">Can we pay in naira?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Yes. All plans are billed in naira, by local card or bank transfer.</p></div></div>
-          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do we become a design partner?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p><a href="https://fortis-web.onrender.com/signup" style="color:var(--green);font-weight:700">Start free</a> and tell us about your team. Design partners get locked early pricing and help shape the rule pack.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do we become a design partner?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p><a href="contact.html" style="color:var(--green);font-weight:700">Tell us about your team</a>. Design partners get locked early pricing and help shape the rule pack.</p></div></div>
         </div>
       </div>
       <p class="empty" id="faq-empty">No questions match that search. <a href="contact.html" style="color:var(--green);font-weight:700">Ask us instead.</a></p>
@@ -228,7 +228,7 @@
       <div>
         <a href="index.html" class="logo"><svg><use href="#i-logo"/></svg>fortis</a>
         <p>Security testing on every release, between your annual pentests. Built for African fintech.</p>
-        <a href="https://fortis-web.onrender.com/signup" class="footer-cta">Start free <svg><use href="#i-arrow"/></svg></a>
+        <a href="docs.html#install" class="footer-cta">Start free <svg><use href="#i-arrow"/></svg></a>
       </div>
       <div><h5>Product</h5><ul><li><a href="product.html#guard">Fortis Guard CLI</a></li><li><a href="product.html#staging">Staging checks</a></li><li><a href="product.html#evidence">Evidence pack</a></li><li><a href="product.html#rules">Fintech rule pack</a></li><li><a href="docs.html">Docs and CLI reference</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
       <div><h5>Solutions</h5><ul><li><a href="solutions.html#developers">Developers</a></li><li><a href="solutions.html#security">Security leads</a></li><li><a href="solutions.html#compliance">Compliance</a></li><li><a href="solutions.html#banks">Partner banks</a></li><li><a href="compare.html">Fortis vs VAPT</a></li></ul></div>

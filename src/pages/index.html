@@ -47,7 +47,7 @@
     <div class="hero-intro">
       <p class="lead reveal">Fortis catches fintech-specific security defects on every push and every deploy, between the annual pentests you already run, and turns that work into an evidence pack your tester, partner banks and auditors can start from.</p>
       <div class="hero-actions reveal" style="--d:120ms">
-        <a href="https://fortis-web.onrender.com/signup" class="btn btn-primary">Start free <svg><use href="#i-arrow"/></svg></a>
+        <a href="docs.html#install" class="btn btn-primary">Start free <svg><use href="#i-arrow"/></svg></a>
         <a href="#how" class="btn btn-ghost">See how it works <svg><use href="#i-arrow"/></svg></a>
         <a href="#why" class="btn btn-ghost green">Fortis vs pentest firms <svg><use href="#i-arrow"/></svg></a>
       </div>
@@ -140,7 +140,7 @@
           <h3>Catch fintech defects before they leave the laptop.</h3>
           <p>Fortis Guard installs as a dev dependency and runs on every push. It knows Paystack, Flutterwave and Monnify keys, transfers without an ownership check, balance updates outside a transaction, and BVN or NIN in logs.</p>
           <div class="checks"><span class="check"><i><svg><use href="#i-check"/></svg></i>Payment-provider secrets</span><span class="check"><i><svg><use href="#i-check"/></svg></i>Ownership checks</span><span class="check"><i><svg><use href="#i-check"/></svg></i>BVN / NIN exposure</span></div>
-          <a href="https://fortis-web.onrender.com/signup" class="btn btn-primary">Install the CLI <svg><use href="#i-arrow"/></svg></a>
+          <a href="docs.html#install" class="btn btn-primary">Install the CLI <svg><use href="#i-arrow"/></svg></a>
         </div>
         <div class="model-pane" role="tabpanel">
           <div class="top"><svg><use href="#i-target"/></svg><span class="k">STEP 02</span></div>
@@ -311,12 +311,12 @@
         <div class="name">Fortis Free</div>
         <div class="price">₦0</div><div class="per">Free forever</div>
         <ul><li><svg><use href="#i-check-line"/></svg>Secret and dependency scans</li><li><svg><use href="#i-check-line"/></svg>Pre-push hook</li><li><svg><use href="#i-check-line"/></svg>1 project</li><li><svg><use href="#i-check-line"/></svg>Community support</li></ul>
-        <a href="https://fortis-web.onrender.com/signup" class="btn-outline">Start free</a>
+        <a href="docs.html#install" class="btn-outline">Start free</a>
       </div>
       <div class="plan reveal" style="--d:80ms">
         <div class="name">Fortis Core</div>
         <div class="price" data-m="₦450k" data-y="₦5.4m">₦450k<small>/mo</small></div><div class="per" data-m="₦5.4m a year" data-y="Billed yearly · ₦450k a month">₦5.4m a year</div>
-        <ul><li><svg><use href="#i-check-line"/></svg>Fintech rule pack</li><li><svg><use href="#i-check-line"/></svg>Payment-provider secrets</li><li><svg><use href="#i-check-line"/></svg>Findings dashboard</li><li><svg><use href="#i-check-line"/></svg>Basic evidence pack</li><li><svg><use href="#i-check-line"/></svg>5 projects · 10 seats</li></ul>
+        <ul><li><svg><use href="#i-check-line"/></svg>Everything in Free</li><li><svg><use href="#i-check-line"/></svg>Fintech rule pack</li><li><svg><use href="#i-check-line"/></svg>Findings dashboard</li><li><svg><use href="#i-check-line"/></svg>Basic evidence pack</li><li><svg><use href="#i-check-line"/></svg>5 projects · 10 seats</li></ul>
         <a href="https://fortis-web.onrender.com/signup" class="btn-outline">Choose Core</a>
       </div>
       <div class="plan featured reveal" style="--d:160ms">
@@ -373,8 +373,8 @@
       <div class="faq-item"><button class="faq-q" aria-expanded="false">Does Fortis upload our source code?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Analysis runs on the developer's laptop or in your CI. Only finding details (rule, file, line) are sent to Fortis, with sensitive values masked.</p></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false">Can Fortis attack production?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>No. Active checks only run against staging targets you've verified, using your own test users, and are read-only by default. Production is never actively tested.</p></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false">Will regulators accept the evidence pack?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The pack maps findings, fixes and re-tests to CBN, NDPA and PCI DSS control areas. It's designed as input for your pentester, partner banks and auditors, not as a substitute for required tests. We're validating acceptance with design partners.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">Which languages are supported?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Node.js and TypeScript first. The next language is being chosen with design partners.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's in the free plan?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>Secret and dependency scanning with a pre-push hook for one project, free forever. Fortis Core adds the fintech rule pack, payment-provider secrets, the dashboard and a basic evidence pack.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Which languages are supported?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The free checks work in any language. Secrets are found in any file, and dependencies are read for JavaScript, Python, PHP, Java, Kotlin, Scala, Go, .NET, Ruby, Rust, Dart/Flutter, Swift, Elixir, Haskell and R, plus Dockerfiles and GitHub Actions. The fintech code rules cover JavaScript, TypeScript, Python, Go, C#, PHP, Java and Kotlin.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's in the free plan?<span class="pm"><svg><use href="#i-plus"/></svg></span></button><div class="faq-a"><p>The Fortis CLI is free, with no account or key. It blocks leaked keys on every push (including Paystack, Flutterwave, Monnify and Stripe secret keys), finds vulnerable packages, checks Docker images and GitHub Actions, and runs in your CI. <a href="docs.html" style="color:var(--green);font-weight:700">Read the docs.</a> Fortis Core adds the fintech rule pack, the dashboard and a basic evidence pack.</p></div></div>
     </div>
     <a href="faq.html" class="link-arrow reveal" style="margin-top:28px">See all questions <svg><use href="#i-arrow"/></svg></a>
   </div>
