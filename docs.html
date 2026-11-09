@@ -317,7 +317,7 @@ fortis scan --ci --sarif fortis.sarif</pre></div>
       <p>Findings are matched by rule, file and the masked line of code, not the line number, so moving code around doesn't make an old finding look new. The file holds fingerprints, never code. Run it again whenever you want to accept the current state.</p>
 
       <h2 id="cmd-ci">fortis ci init</h2>
-      <p>Writes a CI pipeline that scans every pull request and push. It detects your CI from the files in the repository, or you choose with <code>--provider</code>: <code>github</code>, <code>gitlab</code>, <code>bitbucket</code>, <code>azure</code>, <code>jenkins</code>, <code>circleci</code> or <code>buildkite</code>. It never overwrites a file you already have; <code>--force</code> replaces one that Fortis wrote. See <a href="#ci">CI pipelines</a> for what to keep on the free plan.</p>
+      <p>Writes a CI pipeline that scans every pull request and push. It detects your CI from the files in the repository, or you choose with <code>--provider</code>: <code>github</code>, <code>gitlab</code>, <code>bitbucket</code>, <code>azure</code>, <code>jenkins</code>, <code>circleci</code> or <code>buildkite</code>. The pipeline needs no secrets. It never overwrites a file you already have; <code>--force</code> replaces one that Fortis wrote. See <a href="#ci">CI pipelines</a>.</p>
 
       <h2 id="cmd-test">Testing your app locally</h2>
       <p>Runs an <a href="https://www.zaproxy.org/" target="_blank" rel="noopener">OWASP ZAP</a> scan against an app running on your own machine. It crawls the app and inspects its responses for missing security headers, insecure cookies, exposed data and similar problems. It sends no attacks, and the results stay on your machine.</p>
@@ -383,7 +383,7 @@ fortis explain FX-SEC-001   <span class="c"># why a rule matters and how to fix 
       <p class="docs-small"><code>--stdin</code> reads the commits git is pushing, so a first push covers every new commit.</p>
 
       <h2 id="ci">CI pipelines</h2>
-      <p>The pre-push hook can be skipped, so check every pull request in CI as well. No key or secret is needed. Here is a complete GitHub Actions workflow: save it as <code>.github/workflows/fortis.yml</code>.</p>
+      <p>The pre-push hook can be skipped, so check every pull request in CI as well. No key or secret is needed. Run <code>fortis ci init</code> to write the file for your CI, or copy this complete GitHub Actions workflow into <code>.github/workflows/fortis.yml</code>.</p>
       <div class="docs-code"><div class="docs-code-head"><span>.github/workflows/fortis.yml</span><button class="copy" data-copy-from="gh-yml"><svg><use href="#i-copy"/></svg>Copy</button></div><pre id="gh-yml">name: Fortis
 
 on:
@@ -437,8 +437,7 @@ jobs:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH</pre></div>
       <p class="docs-small">For a merge-request comment, add <code>--pr-comment</code> and set <code>FORTIS_GITLAB_TOKEN</code> to a project access token with the <code>api</code> scope.</p>
-      <p><strong>Bitbucket, Azure DevOps, Jenkins, CircleCI and Buildkite:</strong> run <code>fortis ci init --provider &lt;name&gt;</code> to write a pipeline for yours. It uses the standalone binary or the Docker image, so your project doesn't need Node.</p>
-      <div class="docs-note warn"><code>fortis ci init</code> also writes a <code>staging</code> job, which tests a deployed site and needs a Fortis account. On the free plan, delete that job and keep the scan.</div>
+      <p><strong>Bitbucket, Azure DevOps, Jenkins, CircleCI and Buildkite:</strong> run <code>fortis ci init --provider &lt;name&gt;</code> to write a pipeline for yours. It uses the standalone binary or the Docker image, so your project doesn't need Node, and it needs no secrets.</p>
 
       <h2 id="history">Secrets in git history</h2>
       <div class="code"><span class="p">$</span><code>fortis scan --history</code><button class="copy" data-copy="fortis scan --history"><svg><use href="#i-copy"/></svg>Copy</button></div>
