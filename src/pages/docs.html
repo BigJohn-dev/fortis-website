@@ -1,0 +1,442 @@
+<!--meta {"title": "Docs · Fortis", "description": "Install the free Fortis CLI and block leaked keys, vulnerable packages and risky Docker and GitHub Actions setups on every push. No account needed.", "nav": "docs", "cta": false, "scripts": ["assets/js/docs.js"]} -->
+<section class="page-hero docs-hero">
+  <div class="container">
+    <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="index.html"><svg><use href="#i-home"/></svg>Home</a><span class="sep">/</span><span>Docs</span></nav>
+    <span class="eyebrow reveal">Fortis CLI · free</span>
+    <h1 class="words">Security checks on <span class="it accent">every push.</span></h1>
+    <p class="lead reveal" style="--d:150ms">The Fortis CLI runs on your laptop and in CI. It's free, needs no account, and stops leaked keys before they leave your machine. It also finds vulnerable packages and risky Docker and GitHub Actions setups.</p>
+    <div class="docs-hero-meta reveal" style="--d:250ms">
+      <span class="docs-pill"><svg><use href="#i-check"/></svg>No account or key</span>
+      <span class="docs-pill"><svg><use href="#i-check"/></svg>Your code stays on your machine</span>
+      <span class="docs-pill"><svg><use href="#i-check"/></svg>MIT licensed</span>
+      <span class="docs-pill mono">fortis-watchdog 0.1.0-beta.12</span>
+    </div>
+  </div>
+</section>
+
+<section class="section docs-section">
+  <div class="container legal docs">
+    <nav class="toc docs-toc" aria-label="Contents">
+      <button class="docs-toc-toggle" type="button" aria-expanded="false">Contents<svg><use href="#i-chev"/></svg></button>
+      <div class="docs-toc-list">
+        <strong>Get started</strong>
+        <a href="#overview">What it does</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#install">Install</a>
+        <a href="#quick-start">Quick start</a>
+        <strong>Commands</strong>
+        <a href="#cmd-scan">fortis scan</a>
+        <a href="#cmd-init">fortis init</a>
+        <a href="#cmd-baseline">fortis baseline</a>
+        <a href="#cmd-ci">fortis ci init</a>
+        <a href="#cmd-test">Testing your app locally</a>
+        <a href="#cmd-doctor">fortis doctor</a>
+        <a href="#cmd-explain">explain and rules</a>
+        <a href="#cmd-update">fortis update</a>
+        <strong>Guides</strong>
+        <a href="#hook">The pre-push hook</a>
+        <a href="#hook-managers">pre-commit, lefthook, Husky</a>
+        <a href="#ci">CI pipelines</a>
+        <a href="#history">Secrets in git history</a>
+        <a href="#ignore">Ignoring a finding</a>
+        <a href="#proxy">Proxies and no internet</a>
+        <a href="#windows">Windows</a>
+        <strong>Reference</strong>
+        <a href="#rules">Rules</a>
+        <a href="#dependency-files">Dependency files</a>
+        <a href="#config">.fortis.json</a>
+        <a href="#env">Environment variables</a>
+        <a href="#exit-codes">Exit codes</a>
+        <a href="#privacy">What leaves your machine</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </div>
+    </nav>
+
+    <article class="prose docs-prose">
+
+      <!-- ================= Get started ================= -->
+
+      <h2 id="overview">What it does</h2>
+      <p>Fortis is a command-line tool. Install it in a repository, and it checks your code on every push and every CI run:</p>
+      <div class="docs-cards">
+        <div><svg><use href="#i-alert"/></svg><b>Leaked secrets</b><p>Paystack, Flutterwave, Monnify and Stripe secret keys, cloud and API keys, tokens, private keys and database passwords. A push containing one is blocked on the laptop.</p></div>
+        <div><svg><use href="#i-pulse"/></svg><b>Vulnerable packages</b><p>Known vulnerabilities in your dependencies, from the public <a href="https://osv.dev" target="_blank" rel="noopener">OSV</a> database, with the version and command that fix each one.</p></div>
+        <div><svg><use href="#i-git"/></svg><b>Supply chain</b><p>Docker base images with no version, not pinned, or past end of life, and GitHub Actions that aren't pinned or that run untrusted pull-request code.</p></div>
+        <div><svg><use href="#i-target"/></svg><b>Your running app</b><p>An OWASP ZAP scan of the app on your own machine, for missing headers, cookie flags and exposed data.</p></div>
+      </div>
+      <p>Every finding comes with the file, the line and how to fix it. Secrets are always masked in the output (<code>sk_live_••••d0e4</code>), so reports are safe to paste into CI logs and chat.</p>
+
+      <h2 id="requirements">Requirements</h2>
+      <ul>
+        <li><strong>git</strong>, for the pre-push hook.</li>
+        <li><strong>Node.js 18.17 or newer</strong>, only if you install from npm. The standalone binary, the Python package and the Docker image need no Node.</li>
+        <li><strong>Docker or a local ZAP</strong>, only for <code>fortis test</code>.</li>
+      </ul>
+      <p>Builds exist for Linux (x64 and arm64, including Alpine), macOS (Apple silicon and Intel) and Windows (x64).</p>
+
+      <h2 id="install">Install</h2>
+      <p>Pick the one that fits your project. They all install the same CLI.</p>
+      <div class="docs-tabs" data-tabs="install">
+        <div class="docs-tablist" role="tablist">
+          <button role="tab" data-tab="js" aria-selected="true">JavaScript / TypeScript</button>
+          <button role="tab" data-tab="python">Python</button>
+          <button role="tab" data-tab="unix">macOS / Linux</button>
+          <button role="tab" data-tab="windows">Windows</button>
+          <button role="tab" data-tab="docker">Docker</button>
+        </div>
+        <div class="docs-panel" data-panel="js">
+          <p>Add it to the project as a development dependency, so everyone on the team gets the same version:</p>
+          <div class="code"><span class="p">$</span><code>npm i -D fortis-watchdog</code><button class="copy" data-copy="npm i -D fortis-watchdog"><svg><use href="#i-copy"/></svg>Copy</button></div>
+          <p class="docs-small">With pnpm: <code>pnpm add -D fortis-watchdog</code>. Yarn: <code>yarn add -D fortis-watchdog</code> (Plug'n'Play works too). Bun: <code>bun add -d fortis-watchdog</code>. Then run it with <code>npx fortis</code>, <code>pnpm exec fortis</code>, <code>yarn fortis</code> or <code>bunx fortis</code>.</p>
+        </div>
+        <div class="docs-panel" data-panel="python" hidden>
+          <p>A standalone build, so it needs no Node:</p>
+          <div class="code"><span class="p">$</span><code>pip install fortis-watchdog</code><button class="copy" data-copy="pip install fortis-watchdog"><svg><use href="#i-copy"/></svg>Copy</button></div>
+          <p class="docs-small">Or <code>pipx install fortis-watchdog</code>, or <code>uv tool install fortis-watchdog</code>. Install it in your project's <code>.venv</code> or globally: the git hook finds it even when the virtual environment isn't active, and through <code>uv run</code> and <code>poetry run</code>.</p>
+        </div>
+        <div class="docs-panel" data-panel="unix" hidden>
+          <p>For any language. The script puts the binary in <code>~/.fortis/bin</code> and checks it against the release's checksums:</p>
+          <div class="code"><span class="p">$</span><code>curl -fsSL https://github.com/Divine-mercyx/fortis/releases/latest/download/install.sh | sh</code><button class="copy" data-copy="curl -fsSL https://github.com/Divine-mercyx/fortis/releases/latest/download/install.sh | sh"><svg><use href="#i-copy"/></svg>Copy</button></div>
+          <p class="docs-small"><code>FORTIS_VERSION=0.1.0-beta.12</code> pins a version, and <code>FORTIS_INSTALL_DIR</code> changes the folder. On Alpine, run <code>apk add libstdc++</code> first.</p>
+        </div>
+        <div class="docs-panel" data-panel="windows" hidden>
+          <p>For any language, in PowerShell:</p>
+          <div class="code"><span class="p">&gt;</span><code>irm https://github.com/Divine-mercyx/fortis/releases/latest/download/install.ps1 | iex</code><button class="copy" data-copy="irm https://github.com/Divine-mercyx/fortis/releases/latest/download/install.ps1 | iex"><svg><use href="#i-copy"/></svg>Copy</button></div>
+          <p class="docs-small">It installs to <code>%USERPROFILE%\.fortis\bin</code> and adds that to your PATH. Open a new terminal afterwards.</p>
+        </div>
+        <div class="docs-panel" data-panel="docker" hidden>
+          <p>Nothing to install on the machine. Useful in CI:</p>
+          <div class="code"><span class="p">$</span><code>docker run --rm -v "$PWD:/src" -w /src ghcr.io/divine-mercyx/fortis fortis scan --ci</code><button class="copy" data-copy='docker run --rm -v "$PWD:/src" -w /src ghcr.io/divine-mercyx/fortis fortis scan --ci'><svg><use href="#i-copy"/></svg>Copy</button></div>
+          <p class="docs-small">Use a version tag such as <code>ghcr.io/divine-mercyx/fortis:0.1.0-beta.12</code> to pin it.</p>
+        </div>
+      </div>
+      <p>Check it works with <code>fortis --version</code>. The examples below write <code>fortis</code>; in an npm project, that's <code>npx fortis</code>.</p>
+
+      <h2 id="quick-start">Quick start</h2>
+      <ol class="docs-steps">
+        <li><strong>Set up the repository.</strong> From its root:
+          <div class="code"><span class="p">$</span><code>fortis init</code><button class="copy" data-copy="fortis init"><svg><use href="#i-copy"/></svg>Copy</button></div>
+          This installs the pre-push hook and writes <code>.fortis.json</code>. Commit that file; it holds settings, never secrets.
+        </li>
+        <li><strong>Scan everything once.</strong>
+          <div class="code"><span class="p">$</span><code>fortis scan</code><button class="copy" data-copy="fortis scan"><svg><use href="#i-copy"/></svg>Copy</button></div>
+        </li>
+        <li><strong>Push as usual.</strong> The hook checks what you're pushing. A critical finding, such as a live payment key, stops the push and shows the fix. Anything less serious is reported and the push goes through.</li>
+        <li><strong>Add it to CI</strong> so every pull request is checked too. See <a href="#ci">CI pipelines</a>.</li>
+      </ol>
+      <div class="docs-note">Already have findings you can't fix today? Run <code>fortis baseline</code> once and commit the file it writes. From then on only <em>new</em> findings block. See <a href="#cmd-baseline">fortis baseline</a>.</div>
+
+      <!-- ================= Commands ================= -->
+
+      <h2 id="cmd-scan">fortis scan</h2>
+      <p>Scans the repository and prints each finding with its fix.</p>
+      <div class="docs-table"><table>
+        <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>--pre-push</code></td><td>Only the files in the commits being pushed. The git hook uses this.</td></tr>
+          <tr><td><code>--ci</code></td><td>A full scan for CI. Turned on automatically when the <code>CI</code> variable is set.</td></tr>
+          <tr><td><code>--fail-on &lt;severity&gt;</code></td><td>Exit with code 1 at this severity or above: <code>critical</code> (default), <code>high</code>, <code>medium</code>, <code>low</code> or <code>info</code>.</td></tr>
+          <tr><td><code>--history</code></td><td>Also search every commit on every branch for secrets. See <a href="#history">Secrets in git history</a>.</td></tr>
+          <tr><td><code>--sarif &lt;file&gt;</code></td><td>Write SARIF, for GitHub code scanning, GitLab and editors.</td></tr>
+          <tr><td><code>--junit &lt;file&gt;</code></td><td>Write JUnit XML, for CI systems that show test reports.</td></tr>
+          <tr><td><code>--pr-comment</code></td><td>In GitHub Actions or GitLab CI, post one comment on the pull request listing what it adds, and update it in place.</td></tr>
+          <tr><td><code>--json</code></td><td>Print the results as data. Secrets are masked here too.</td></tr>
+          <tr><td><code>--sbom &lt;file&gt;</code></td><td>Also check a CycloneDX JSON SBOM, for full Java, Kotlin and Python coverage.</td></tr>
+          <tr><td><code>--no-baseline</code></td><td>Report and block on every finding, ignoring <code>.fortis-baseline.json</code>.</td></tr>
+          <tr><td><code>--offline</code></td><td>No network: skips the dependency check, unless you pass <code>--osv-db</code>.</td></tr>
+          <tr><td><code>--osv-db &lt;dir&gt;</code></td><td>Check dependencies against downloaded OSV data. See <a href="#proxy">No internet</a>.</td></tr>
+          <tr><td><code>--submodules</code></td><td>Also scan git submodules, which are skipped by default.</td></tr>
+          <tr><td><code>--paths-from &lt;file&gt;</code></td><td>Only scan the files listed, one per line (<code>-</code> reads them from stdin).</td></tr>
+          <tr><td><code>--no-cache</code></td><td>Ask OSV again instead of using answers cached in the last 6 hours.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="docs-code"><div class="docs-code-head"><span>Examples</span><button class="copy" data-copy="fortis scan --fail-on high"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>fortis scan                      <span class="c"># everything, report only</span>
+fortis scan --fail-on high       <span class="c"># stricter: block on high findings too</span>
+fortis scan --history            <span class="c"># include secrets anywhere in git history</span>
+fortis scan --ci --sarif fortis.sarif</pre></div>
+
+      <h2 id="cmd-init">fortis init</h2>
+      <p>Sets up the current repository:</p>
+      <ul>
+        <li>writes <code>.fortis.json</code>;</li>
+        <li>installs the git pre-push hook, keeping any hook you already have;</li>
+        <li>adds a <code>security:scan</code> script to <code>package.json</code>, if there is one.</li>
+      </ul>
+      <p><code>--no-hook</code> skips the hook. After you upgrade Fortis, run <code>fortis init</code> again to update the hook; your own lines in it are kept.</p>
+
+      <h2 id="cmd-baseline">fortis baseline</h2>
+      <p>Records today's findings in <code>.fortis-baseline.json</code>. Commit it, and from then on only new findings block pushes and CI. This is the easiest way to adopt Fortis in an existing codebase.</p>
+      <p>Findings are matched by rule, file and the masked line of code, not the line number, so moving code around doesn't make an old finding look new. The file holds fingerprints, never code. Run it again whenever you want to accept the current state.</p>
+
+      <h2 id="cmd-ci">fortis ci init</h2>
+      <p>Writes a CI pipeline that scans every pull request and push. It detects your CI from the files in the repository, or you choose with <code>--provider</code>: <code>github</code>, <code>gitlab</code>, <code>bitbucket</code>, <code>azure</code>, <code>jenkins</code>, <code>circleci</code> or <code>buildkite</code>. It never overwrites a file you already have; <code>--force</code> replaces one that Fortis wrote. See <a href="#ci">CI pipelines</a> for what to keep on the free plan.</p>
+
+      <h2 id="cmd-test">Testing your app locally</h2>
+      <p>Runs an <a href="https://www.zaproxy.org/" target="_blank" rel="noopener">OWASP ZAP</a> scan against an app running on your own machine. It crawls the app and inspects its responses for missing security headers, insecure cookies, exposed data and similar problems. It sends no attacks, and the results stay on your machine.</p>
+      <div class="code"><span class="p">$</span><code>fortis test --target http://localhost:3000 --local</code><button class="copy" data-copy="fortis test --target http://localhost:3000 --local"><svg><use href="#i-copy"/></svg>Copy</button></div>
+      <div class="docs-table"><table>
+        <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>--target &lt;url&gt;</code></td><td>The app to test: <code>localhost</code>, <code>127.0.0.1</code> or <code>*.localhost</code>.</td></tr>
+          <tr><td><code>--minutes &lt;n&gt;</code></td><td>How long to crawl (default 2).</td></tr>
+          <tr><td><code>--wait &lt;seconds&gt;</code></td><td>Wait for the app to start answering first.</td></tr>
+          <tr><td><code>--fail-on &lt;severity&gt;</code></td><td>Exit 1 at this severity or above (default <code>high</code>).</td></tr>
+          <tr><td><code>--zap-report &lt;file&gt;</code></td><td>Read a ZAP JSON report you ran yourself instead of running ZAP.</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>ZAP:</strong> Fortis uses Docker (the official <code>zaproxy/zap-stable</code> image), or a ZAP installed on your machine when Docker isn't running. To install one, use <code>brew install --cask zap</code> on macOS, <code>sudo snap install zaproxy --classic</code> on Linux, or <code>winget install ZAP.ZAP</code> on Windows. <code>FORTIS_ZAP_PATH</code> points at a specific <code>zap.sh</code> or <code>zap.bat</code>.</p>
+      <p><strong>Behind login:</strong> set <code>FORTIS_ZAP_AUTH</code> to a test user's token, and ZAP tests the pages and APIs behind login too. The token is sent only to the target, passed to ZAP through the environment, and removed from all output. <code>FORTIS_ZAP_AUTH_HEADER=Cookie</code> sends it as a cookie instead.</p>
+
+      <h2 id="cmd-doctor">fortis doctor</h2>
+      <p>Checks the install, the git hook, <code>.fortis.json</code>, network access, git, your lockfiles and Docker, and prints the fix for anything wrong. Start here when something doesn't work.</p>
+      <div class="code"><span class="p">$</span><code>fortis doctor</code><button class="copy" data-copy="fortis doctor"><svg><use href="#i-copy"/></svg>Copy</button></div>
+      <p class="docs-small"><code>--json</code> prints the results as data, <code>--offline</code> skips the network checks, and <code>--strict</code> also fails on things that are only worth knowing. It exits 1 if something stops Fortis doing its job.</p>
+
+      <h2 id="cmd-explain">explain and rules</h2>
+      <div class="docs-code"><div class="docs-code-head"><span>shell</span><button class="copy" data-copy="fortis explain FX-SEC-001"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>fortis rules                <span class="c"># every rule, with its severity</span>
+fortis explain FX-SEC-001   <span class="c"># why a rule matters and how to fix it</span></pre></div>
+
+      <h2 id="cmd-update">fortis update</h2>
+      <p>Updates a binary installed with the install scripts to the latest release, after checking it against the release's checksums. <code>fortis update 0.1.0-beta.12</code> installs a specific version. If you installed with npm or pip, it tells you the command to use instead.</p>
+      <p>Once a day, outside CI, Fortis also prints a notice when a newer version exists. Set <code>FORTIS_NO_UPDATE_CHECK=1</code> to turn it off.</p>
+
+      <!-- ================= Guides ================= -->
+
+      <h2 id="hook">The pre-push hook</h2>
+      <p><code>fortis init</code> installs a git pre-push hook. When you push, it finds the CLI and runs <code>fortis scan --pre-push</code> on the files in the commits you're pushing. On the first push of a new repository or branch, that's every commit the remote doesn't have yet. So a key committed early and deleted later is still caught.</p>
+      <ul>
+        <li>A <strong>critical</strong> finding blocks the push. Everything else is shown, and the push goes through. Change the threshold with <code>"failOn"</code> in <a href="#config">.fortis.json</a>.</li>
+        <li>The hook finds the CLI in <code>node_modules</code> (npm, pnpm, Yarn, including Plug'n'Play, and Bun), in a Python virtual environment, or on your PATH.</li>
+        <li>In an emergency, skip it once with <code>git push --no-verify</code>. CI still scans.</li>
+      </ul>
+
+      <h2 id="hook-managers">pre-commit, lefthook and Husky</h2>
+      <p>If your team already uses a hook manager, run Fortis through it instead. Install the CLI so <code>fortis</code> is on your PATH, then add one of these.</p>
+      <div class="docs-code"><div class="docs-code-head"><span>.pre-commit-config.yaml</span><button class="copy" data-copy="repos:
+  - repo: https://github.com/Divine-mercyx/fortis
+    rev: cli-v0.1.0-beta.12
+    hooks:
+      - id: fortis"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>repos:
+  - repo: https://github.com/Divine-mercyx/fortis
+    rev: cli-v0.1.0-beta.12
+    hooks:
+      - id: fortis</pre></div>
+      <p class="docs-small">Then <code>pre-commit install --hook-type pre-push</code>.</p>
+      <div class="docs-code"><div class="docs-code-head"><span>lefthook.yml</span><button class="copy" data-copy="pre-push:
+  commands:
+    fortis:
+      run: fortis scan --pre-push --stdin
+      use_stdin: true"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>pre-push:
+  commands:
+    fortis:
+      run: fortis scan --pre-push --stdin
+      use_stdin: true</pre></div>
+      <div class="docs-code"><div class="docs-code-head"><span>.husky/pre-push</span><button class="copy" data-copy="npx --no-install fortis scan --pre-push --stdin"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>npx --no-install fortis scan --pre-push --stdin</pre></div>
+      <p class="docs-small"><code>--stdin</code> reads the commits git is pushing, so a first push covers every new commit.</p>
+
+      <h2 id="ci">CI pipelines</h2>
+      <p>The pre-push hook can be skipped, so check every pull request in CI as well. No key or secret is needed. Here is a complete GitHub Actions workflow: save it as <code>.github/workflows/fortis.yml</code>.</p>
+      <div class="docs-code"><div class="docs-code-head"><span>.github/workflows/fortis.yml</span><button class="copy" data-copy-from="gh-yml"><svg><use href="#i-copy"/></svg>Copy</button></div><pre id="gh-yml">name: Fortis
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write    <span class="c"># for the pull-request comment</span>
+  security-events: write  <span class="c"># for GitHub code scanning</span>
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Fortis
+        run: |
+          curl -fsSL https://github.com/Divine-mercyx/fortis/releases/download/cli-v0.1.0-beta.12/install.sh | FORTIS_VERSION=0.1.0-beta.12 sh
+          echo "$HOME/.fortis/bin" &gt;&gt; "$GITHUB_PATH"
+      - name: Fortis scan
+        run: fortis scan --ci --sarif fortis.sarif --pr-comment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload to GitHub code scanning
+        if: always() &amp;&amp; hashFiles('fortis.sarif') != ''
+        continue-on-error: true  <span class="c"># free on public repositories</span>
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: fortis.sarif
+          category: fortis</pre></div>
+      <p>What you get:</p>
+      <ul>
+        <li><strong>The build fails</strong> on a critical finding (change it with <code>--fail-on</code>).</li>
+        <li><strong>Findings appear on the pull request's changed lines</strong> as annotations, and in one summary comment listing only what the pull request adds. A pull request from a fork gets a read-only token, so it gets no comment.</li>
+        <li><strong>GitHub code scanning</strong> shows them in the Security tab. That's free on public repositories and needs GitHub Advanced Security on private ones; the step never fails the build.</li>
+      </ul>
+      <p><strong>GitLab CI</strong>, in <code>.gitlab-ci.yml</code>:</p>
+      <div class="docs-code"><div class="docs-code-head"><span>.gitlab-ci.yml</span><button class="copy" data-copy-from="gl-yml"><svg><use href="#i-copy"/></svg>Copy</button></div><pre id="gl-yml">fortis-scan:
+  stage: test
+  image: ghcr.io/divine-mercyx/fortis:0.1.0-beta.12
+  script:
+    - fortis scan --ci --sarif fortis.sarif --junit fortis-junit.xml
+  artifacts:
+    when: always
+    paths: [fortis.sarif]
+    reports:
+      junit: fortis-junit.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH</pre></div>
+      <p class="docs-small">For a merge-request comment, add <code>--pr-comment</code> and set <code>FORTIS_GITLAB_TOKEN</code> to a project access token with the <code>api</code> scope.</p>
+      <p><strong>Bitbucket, Azure DevOps, Jenkins, CircleCI and Buildkite:</strong> run <code>fortis ci init --provider &lt;name&gt;</code> to write a pipeline for yours. It uses the standalone binary or the Docker image, so your project doesn't need Node.</p>
+      <div class="docs-note warn"><code>fortis ci init</code> also writes a <code>staging</code> job, which tests a deployed site and needs a Fortis account. On the free plan, delete that job and keep the scan.</div>
+
+      <h2 id="history">Secrets in git history</h2>
+      <div class="code"><span class="p">$</span><code>fortis scan --history</code><button class="copy" data-copy="fortis scan --history"><svg><use href="#i-copy"/></svg>Copy</button></div>
+      <p>This searches every commit on every branch. A key that was committed and later deleted can still be read by anyone who can clone the repository, so treat it as leaked: <strong>rotate it</strong> with the provider. Each secret is reported once, at the commit that introduced it. In CI, the checkout needs full history (<code>fetch-depth: 0</code> in GitHub Actions); <code>fortis ci init --history</code> sets this for you.</p>
+
+      <h2 id="ignore">Ignoring a finding</h2>
+      <p>When you've reviewed a line and it's safe, add a comment on it, or on the line above, with your reason:</p>
+      <div class="docs-code"><div class="docs-code-head"><span>Any language</span><button class="copy" data-copy="// fortis-ignore"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>const testKey = 'sk_test_…'; <span class="c">// fortis-ignore: Paystack test key, safe to commit</span>
+
+<span class="c">// fortis-ignore-next-line: public demo key</span>
+const demo = 'pk_live_…';</pre></div>
+      <p>Any comment style works, such as <code># fortis-ignore</code> in Python, YAML and Dockerfiles. To skip whole folders, add globs to <code>"ignore"</code> in <a href="#config">.fortis.json</a>.</p>
+
+      <h2 id="proxy">Proxies and no internet</h2>
+      <p>Fortis reads the same proxy variables as curl:</p>
+      <div class="docs-code"><div class="docs-code-head"><span>shell</span><button class="copy" data-copy="export HTTPS_PROXY=http://proxy.company.local:8080"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>export HTTPS_PROXY=http://proxy.company.local:8080
+export NO_PROXY=.company.local,10.0.0.0/8</pre></div>
+      <ul>
+        <li>If the proxy inspects TLS with its own certificate, give Fortis the CA with <code>--ca /path/ca.pem</code>, <code>FORTIS_CA_FILE</code> or <code>NODE_EXTRA_CA_CERTS</code>.</li>
+        <li>Answers from OSV are cached for 6 hours in <code>~/.cache/fortis</code>, so pre-push checks stay quick and keep working if the network drops.</li>
+      </ul>
+      <p><strong>No internet at all:</strong> download OSV's data for your ecosystems, copy it across, and point Fortis at the folder:</p>
+      <div class="docs-code"><div class="docs-code-head"><span>shell</span><button class="copy" data-copy="fortis scan --offline --osv-db ./osv"><svg><use href="#i-copy"/></svg>Copy</button></div><pre>curl -O https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip   <span class="c"># also PyPI, Maven, Go, NuGet…</span>
+fortis scan --offline --osv-db ./osv</pre></div>
+
+      <h2 id="windows">Windows</h2>
+      <ul>
+        <li>Git runs the hook with its own shell, so it behaves the same in Git Bash, PowerShell, cmd and WSL.</li>
+        <li>In GitHub Desktop, VS Code and Visual Studio, a blocked push fails with the Fortis report as the error message. Fix the finding and push again.</li>
+        <li>CRLF line endings, backslash paths and files saved with a byte-order mark are all handled, and a baseline written on Windows matches one written on a Mac or Linux.</li>
+      </ul>
+
+      <!-- ================= Reference ================= -->
+
+      <h2 id="rules">Rules</h2>
+      <div class="docs-table"><table>
+        <thead><tr><th>Rule</th><th>Severity</th><th>What it finds</th></tr></thead>
+        <tbody>
+          <tr><td><code>FX-SEC-001</code></td><td><span class="sev crit">Critical</span></td><td><strong>Payment-provider secret key in code.</strong> A Paystack, Stripe, Flutterwave, Monnify, SeerBit, OPay or Squad secret key, or a Stripe restricted key or webhook secret, in the repository or config. Move it to an environment variable or secret manager, then rotate it with the provider.</td></tr>
+          <tr><td><code>SEC-GEN-001</code></td><td><span class="sev high">High</span></td><td><strong>Generic secret in code.</strong> An API key, token, private key or database password (including in a connection URL or connection string). Covers AWS, Google, GitHub, Slack, SendGrid, OpenAI, Anthropic, npm, PyPI, Supabase, Twilio and many more, plus random-looking values in <code>.env</code>, <code>.properties</code> and YAML files.</td></tr>
+          <tr><td><code>DEP-OSV</code></td><td><span class="sev var">Varies</span></td><td><strong>Vulnerable dependency.</strong> A package with a known vulnerability. Each finding names the version that clears every advisory and the upgrade command for your package manager; for an indirect dependency, the direct one that pulls it in. Severity follows the advisory.</td></tr>
+          <tr><td><code>SUP-IMG-001</code></td><td><span class="sev low">Low</span></td><td><strong>Docker base image with no tag or <code>latest</code>,</strong> so each build can get a different image.</td></tr>
+          <tr><td><code>SUP-IMG-002</code></td><td><span class="sev info">Info</span></td><td><strong>Docker base image not pinned by digest</strong> in a production Dockerfile. Add <code>@sha256:…</code> for the image you tested.</td></tr>
+          <tr><td><code>SUP-IMG-003</code></td><td><span class="sev med">Medium</span></td><td><strong>Docker base image past end of life,</strong> such as <code>node:16</code>, <code>python:3.7</code> or <code>debian:buster</code>, so it no longer gets security fixes.</td></tr>
+          <tr><td><code>SUP-GHA-001</code></td><td><span class="sev med">Medium</span></td><td><strong>Third-party GitHub Action not pinned to a commit.</strong> Whoever controls that repository can move a tag like <code>@v4</code> and run their code with your workflow's secrets. Actions from GitHub itself aren't flagged.</td></tr>
+          <tr><td><code>SUP-GHA-002</code></td><td><span class="sev high">High</span></td><td><strong>A <code>pull_request_target</code> workflow runs the pull request's code,</strong> giving anyone who opens a pull request your repository's secrets and a write token.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="docs-small">Run <code>fortis explain &lt;rule&gt;</code> for the full explanation and fix. Every rule is measured against a labelled benchmark, and a release can't make a rule less accurate.</p>
+
+      <h2 id="dependency-files">Dependency files</h2>
+      <div class="docs-table"><table>
+        <thead><tr><th>Language</th><th>Files Fortis reads</th></tr></thead>
+        <tbody>
+          <tr><td>JavaScript / TypeScript</td><td><code>package-lock.json</code>, <code>npm-shrinkwrap.json</code>, <code>yarn.lock</code>, <code>pnpm-lock.yaml</code></td></tr>
+          <tr><td>Python</td><td><code>uv.lock</code>, <code>poetry.lock</code>, <code>pdm.lock</code>, <code>pylock.toml</code>, <code>Pipfile.lock</code>, pinned requirements files</td></tr>
+          <tr><td>PHP</td><td><code>composer.lock</code></td></tr>
+          <tr><td>Java / Kotlin</td><td><code>gradle.lockfile</code>; or <code>gradle/libs.versions.toml</code> and <code>build.gradle(.kts)</code>; <code>pom.xml</code>; or an SBOM</td></tr>
+          <tr><td>Scala</td><td><code>build.sbt.lock</code>, or <code>build.sbt</code> and <code>project/*.scala</code></td></tr>
+          <tr><td>Go</td><td><code>go.mod</code> (following <code>go.work</code>), or <code>vendor/modules.txt</code></td></tr>
+          <tr><td>.NET</td><td><code>packages.lock.json</code>; or <code>.csproj</code>/<code>.fsproj</code>/<code>.vbproj</code>, <code>Directory.Packages.props</code> and <code>packages.config</code></td></tr>
+          <tr><td>Ruby</td><td><code>Gemfile.lock</code></td></tr>
+          <tr><td>Rust</td><td><code>Cargo.lock</code></td></tr>
+          <tr><td>Dart / Flutter</td><td><code>pubspec.lock</code></td></tr>
+          <tr><td>Swift</td><td><code>Package.resolved</code></td></tr>
+          <tr><td>Elixir / Erlang</td><td><code>mix.lock</code>, <code>rebar.lock</code></td></tr>
+          <tr><td>Haskell</td><td><code>cabal.project.freeze</code>, <code>stack.yaml.lock</code></td></tr>
+          <tr><td>R</td><td><code>renv.lock</code></td></tr>
+          <tr><td>GitHub Actions</td><td><code>.github/workflows/*.yml</code>, for actions at an exact version</td></tr>
+        </tbody>
+      </table></div>
+      <p>Files are found in any folder. Development and test dependencies are skipped where they can be told apart. If Fortis can't check something, it says so instead of passing it as clean. That covers a project with no lockfile, a package installed from git, CocoaPods, and C or C++ packages from Conan or vcpkg (OSV has no advisories for those last two).</p>
+      <p><strong>Build files list only direct dependencies.</strong> For full coverage of Java, Kotlin, Scala or a hand-written <code>requirements.txt</code>, commit a lockfile or pass a CycloneDX SBOM with <code>--sbom</code>. On GitHub Actions, <code>fortis ci init</code> adds the SBOM step for Maven, Gradle and Python.</p>
+
+      <h2 id="config">.fortis.json</h2>
+      <p>Commit it. It never holds secrets, and every setting is optional.</p>
+      <div class="docs-code"><div class="docs-code-head"><span>.fortis.json</span><button class="copy" data-copy-from="cfg-json"><svg><use href="#i-copy"/></svg>Copy</button></div><pre id="cfg-json">{
+  "$schema": "https://cdn.jsdelivr.net/npm/fortis-watchdog/fortis.schema.json",
+  "failOn": "critical",
+  "ignore": ["legacy/**", "**/*.generated.ts"],
+  "target": "http://localhost:3000"
+}</pre></div>
+      <div class="docs-table"><table>
+        <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>failOn</code></td><td>The severity that blocks a push or fails a scan (default <code>critical</code>).</td></tr>
+          <tr><td><code>ignore</code></td><td>Globs for paths to skip.</td></tr>
+          <tr><td><code>target</code></td><td>The default URL for <code>fortis test</code>.</td></tr>
+          <tr><td><code>$schema</code></td><td>Gives your editor autocomplete. <code>fortis init</code> adds it.</td></tr>
+        </tbody>
+      </table></div>
+      <p>A misspelled setting isn't silently ignored: Fortis warns and suggests what you meant. These are always skipped: <code>node_modules</code>, <code>vendor</code>, <code>dist</code>, <code>build</code>, <code>coverage</code>, minified files, source maps, binaries and files over 1 MB.</p>
+
+      <h2 id="env">Environment variables</h2>
+      <div class="docs-table"><table>
+        <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>HTTPS_PROXY</code>, <code>HTTP_PROXY</code>, <code>NO_PROXY</code></td><td>Your company proxy. <code>localhost</code> is never proxied.</td></tr>
+          <tr><td><code>FORTIS_CA_FILE</code>, <code>NODE_EXTRA_CA_CERTS</code></td><td>An extra CA certificate, for proxies that inspect TLS.</td></tr>
+          <tr><td><code>FORTIS_CACHE_DIR</code></td><td>Where OSV answers are cached (default <code>~/.cache/fortis</code>).</td></tr>
+          <tr><td><code>FORTIS_NO_UPDATE_CHECK</code></td><td>Set to <code>1</code> to turn off the daily notice about a newer version. Always off in CI.</td></tr>
+          <tr><td><code>FORTIS_SCAN_BUDGET_SECONDS</code></td><td>Stop a scan after this long (default 600), with a note saying what wasn't read.</td></tr>
+          <tr><td><code>FORTIS_ZAP_PATH</code></td><td>Use the ZAP at this path instead of Docker.</td></tr>
+          <tr><td><code>FORTIS_ZAP_IMAGE</code>, <code>FORTIS_ZAP_DOCKER_ARGS</code></td><td>The ZAP Docker image, and extra <code>docker run</code> flags.</td></tr>
+          <tr><td><code>FORTIS_ZAP_AUTH</code>, <code>FORTIS_ZAP_AUTH_HEADER</code></td><td>A test user's token for <code>fortis test</code>, and the header to send it in.</td></tr>
+          <tr><td><code>FORTIS_VERSION</code>, <code>FORTIS_INSTALL_DIR</code></td><td>For the install scripts: the version to install, and where.</td></tr>
+          <tr><td><code>GITHUB_TOKEN</code>, <code>FORTIS_GITLAB_TOKEN</code></td><td>For <code>--pr-comment</code> on GitHub and GitLab.</td></tr>
+          <tr><td><code>NO_COLOR</code>, <code>FORCE_COLOR</code></td><td>Turn terminal colours off or on.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="exit-codes">Exit codes</h2>
+      <div class="docs-table"><table>
+        <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>Passed: nothing at or above the threshold.</td></tr>
+          <tr><td><code>1</code></td><td>Findings at or above the threshold. The push or build should stop.</td></tr>
+          <tr><td><code>2</code></td><td>Couldn't run: a bad option or setting, no files found, neither Docker nor ZAP available, or a network error.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="privacy">What leaves your machine</h2>
+      <ul>
+        <li><strong>Your code never does.</strong> Every check runs on your laptop or in your own CI. Without a key, the CLI sends nothing to Fortis; <code>fortis doctor</code> only checks that it could reach the Fortis API.</li>
+        <li><strong>Dependency check:</strong> package names and versions go to the public <a href="https://osv.dev" target="_blank" rel="noopener">OSV</a> database (<code>api.osv.dev</code>). <code>--offline</code> or <code>--osv-db</code> keeps this local too.</li>
+        <li><strong>Update notice:</strong> once a day, outside CI, Fortis asks GitHub what the latest release is. It sends nothing about your project, and <code>FORTIS_NO_UPDATE_CHECK=1</code> turns it off.</li>
+        <li><strong>Pull-request comments</strong> go to your own GitHub or GitLab, with your CI's token. They show the rule, file and line, never the code.</li>
+        <li><strong><code>fortis test</code></strong> talks only to the app you point it at.</li>
+      </ul>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <p>Start with <code>fortis doctor</code>. It finds most of these and prints the fix.</p>
+      <dl class="docs-faq">
+        <dt>"Fortis: the CLI isn't installed in this repo"</dt>
+        <dd>The git hook couldn't find the CLI. Install it in the project (see <a href="#install">Install</a>) or globally, for example <code>npm i -g fortis-watchdog</code>. To push once without the check: <code>git push --no-verify</code>.</dd>
+        <dt>The hook didn't run</dt>
+        <dd>Run <code>fortis init</code> again. If you use a custom <code>core.hooksPath</code>, such as Husky's, Fortis installs into that folder.</dd>
+        <dt>"found but no lockfile, so those dependencies weren't checked"</dt>
+        <dd>Fortis needs exact versions. Commit the lockfile the message names. Bun lockfiles aren't read yet; pass a CycloneDX SBOM with <code>--sbom</code> instead.</dd>
+        <dt>"Dependency check skipped: could not reach api.osv.dev"</dt>
+        <dd>Allow <code>https://api.osv.dev</code> through your proxy or firewall (see <a href="#proxy">Proxies</a>), or use <code>--osv-db</code>. Until then, the scan says "the dependency check did not finish" rather than passing.</dd>
+        <dt>"Docker is installed but not running"</dt>
+        <dd>Start Docker Desktop or the docker service, or install ZAP locally (see <a href="#cmd-test">fortis test</a>).</dd>
+        <dt>A finding is wrong</dt>
+        <dd>Add <code>fortis-ignore</code> with a reason (see <a href="#ignore">Ignoring a finding</a>), and please <a href="https://github.com/Divine-mercyx/fortis/issues/new/choose" target="_blank" rel="noopener">tell us</a> with a made-up example, so we can fix the rule.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
