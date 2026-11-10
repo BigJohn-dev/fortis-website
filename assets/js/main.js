@@ -4,12 +4,27 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-  /* ---------- Page loader: hide once everything has loaded (at least 1.5 seconds, so the walls get a few turns) ---------- */
+  /* ---------- Page loader: hide once everything has loaded (at least 2.4 seconds, so the lock-in animation finishes) ---------- */
   const loader = $('#loader');
   if (loader) {
     const shown = performance.now();
-    const hide = () => setTimeout(() => loader.classList.add('done'), Math.max(0, 1500 - (performance.now() - shown)));
+    const hide = () => setTimeout(() => loader.classList.add('done'), Math.max(0, 2400 - (performance.now() - shown)));
     if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide, { once: true });
+  }
+
+  /* ---------- Theme choice: System follows the device; Light and Dark are remembered ---------- */
+  const themeBtns = $$('[data-theme-choice]');
+  if (themeBtns.length) {
+    const root = document.documentElement;
+    const read = () => { try { const t = localStorage.getItem('fortis-theme'); return t === 'light' || t === 'dark' ? t : 'system'; } catch (e) { return 'system'; } };
+    const show = (choice) => themeBtns.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.themeChoice === choice)));
+    const apply = (choice) => {
+      if (choice === 'system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', choice);
+      try { if (choice === 'system') localStorage.removeItem('fortis-theme'); else localStorage.setItem('fortis-theme', choice); } catch (e) { /* storage blocked: the choice lasts for this page only */ }
+      show(choice);
+    };
+    show(read());
+    themeBtns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.themeChoice)));
   }
 
   /* ---------- Word-by-word headline reveal ---------- */
